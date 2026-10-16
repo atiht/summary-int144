@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INT144 Agile Software Development I — สรุปเน้นๆ & Quiz 60 ข้อ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --bg-sidebar: #0f172a;
+      --surface: #111827;
+      --surface-2: #1e293b;
+      --surface-hover: #26334d;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-soft: rgba(99, 102, 241, 0.16);
+      --accent: #06b6d4;
+      --accent-soft: rgba(6, 182, 212, 0.15);
+      --success: #10b981;
+      --success-soft: rgba(16, 185, 129, 0.16);
+      --warn: #f59e0b;
+      --warn-soft: rgba(245, 158, 11, 0.14);
+      --danger: #ef4444;
+      --danger-soft: rgba(239, 68, 68, 0.16);
+      --radius: 14px;
+      --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-sidebar: #ffffff;
+      --surface: #ffffff;
+      --surface-2: #f1f5f9;
+      --surface-hover: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-soft: #e0e7ff;
+      --accent: #0891b2;
+      --accent-soft: #cffafe;
+      --success: #059669;
+      --success-soft: #d1fae5;
+      --warn: #d97706;
+      --warn-soft: #fef3c7;
+      --danger: #dc2626;
+      --danger-soft: #fee2e2;
+      --shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navbar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border-strong);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 0.95rem;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-text h1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-2);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .nav-pill:hover {
+      color: var(--text);
+      border-color: var(--primary);
+    }
+
+    .nav-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .theme-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--warn);
+      background: var(--warn-soft);
+      color: var(--warn);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    /* Layout Shell */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      flex: 1;
+      max-width: 1360px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-strong);
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--border-strong);
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 14px;
+      }
+    }
+
+    .side-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      padding: 6px 10px 4px;
+    }
+
+    @media (max-width: 900px) {
+      .side-label {
+        display: none;
+      }
+    }
+
+    .side-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .side-btn:hover {
+      background: var(--surface-2);
+      color: var(--text);
+    }
+
+    .side-btn.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-color: var(--primary);
+      font-weight: 700;
+    }
+
+    .side-badge {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 640px) {
+      .main-content {
+        padding: 16px;
+      }
+    }
+
+    .search-bar-wrap {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Compact Study Cards */
+    .week-block {
+      margin-bottom: 28px;
+    }
+
+    .week-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border-strong);
+    }
+
+    .week-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .w-pill {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card h3 {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kv-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 0.87rem;
+    }
+
+    .kv-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .kv-dot {
+      color: var(--primary);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .hl {
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 0.83rem;
+    }
+
+    .menti-alert {
+      margin-top: 12px;
+      background: var(--warn-soft);
+      border: 1px solid var(--warn);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.86rem;
+    }
+
+    .menti-alert-title {
+      font-weight: 800;
+      color: var(--warn);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .menti-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 8px;
+    }
+
+    .menti-item {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.83rem;
+    }
+
+    /* Compact Table */
+    .compact-table-wrap {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    table.compact-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+      background: var(--surface);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+    }
+
+    .compact-table th, .compact-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-strong);
+      text-align: left;
+    }
+
+    .compact-table th {
+      background: var(--surface-2);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Quiz View */
+    .quiz-top-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .score-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .score-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .score-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .score-box .lbl {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .score-box .val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .quiz-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .q-select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-ghost {
+      background: var(--surface-2);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--primary);
+    }
+
+    .q-card {
+      background: var(--surface);
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .q-card.correct {
+      border-color: var(--success);
+    }
+
+    .q-card.wrong {
+      border-color: var(--danger);
+    }
+
+    .q-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .b-num { background: var(--surface-2); color: var(--text); }
+    .b-week { background: var(--primary-soft); color: var(--primary); }
+    .b-single { background: var(--accent-soft); color: var(--accent); }
+    .b-multi { background: var(--warn-soft); color: var(--warn); }
+
+    .q-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .opt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .opt-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-2);
+      cursor: pointer;
+      font-size: 0.89rem;
+      transition: all 0.15s;
+    }
+
+    .opt-item:hover {
+      border-color: var(--primary);
+    }
+
+    .opt-item input {
+      margin-top: 4px;
+      accent-color: var(--primary);
+      transform: scale(1.12);
+    }
+
+    .opt-item.is-correct {
+      background: var(--success-soft);
+      border-color: var(--success);
+      font-weight: 600;
+    }
+
+    .opt-item.is-wrong {
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .q-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .exp-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      display: none;
+    }
+
+    .exp-box.show {
+      display: block;
+    }
+
+    .exp-ok {
+      background: var(--success-soft);
+      border: 1px solid var(--success);
+    }
+
+    .exp-err {
+      background: var(--danger-soft);
+      border: 1px solid var(--danger);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">144</div>
+      <div class="brand-text">
+        <h1>INT144 Agile Software Development I</h1>
+        <span>สรุปเนื้อหาเน้นๆ Week 1–5 + เก็งข้อสอบ Menti & Quiz 60 ข้อ</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button type="button" class="nav-pill active" id="modeStudyBtn" onclick="setMainMode('study')">📖 สรุปเนื้อหาเน้นๆ</button>
+      <button type="button" class="nav-pill" id="modeQuizBtn" onclick="setMainMode('quiz')">🎯 ทำข้อสอบ Quiz (60 ข้อ)</button>
+      <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️ Light Mode</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="side-label">เลือกบทเรียน / โหมด</div>
+      <button type="button" class="side-btn active" onclick="selectSection('all', this)">
+        <span>📚 สรุปครบทุกสัปดาห์</span>
+        <span class="side-badge">W1–W5</span>
+      </button>
+      <button type="button" class="side-btn" onclick="selectSection('w1', this)">
+        <span>⚡ Week 1: Agile & Scrum</span>
+        <span class="side-badge">12 Qs</span>
+      </button>
+      <button type="button" class="side-btn" onclick="selectSection('w2', this)">
+        <span>🔄 Week 2: Scrum Overview</span>
+        <span class="side-badge">12 Qs</span>
+      </button>
+      <button type="button" class="side-btn" onclick="selectSection('w3', this)">
+        <span>📋 Week 3: Backlog & MoSCoW</span>
+        <span class="side-badge">12 Qs</span>
+      </button>
+      <button type="button" class="side-btn" onclick="selectSection('w4', this)">
+        <span>🚀 Week 4: Sprint & Execution</span>
+        <span class="side-badge">12 Qs</span>
+      </button>
+      <button type="button" class="side-btn" onclick="selectSection('w5', this)">
+        <span>🤝 Week 5: Values & Roles</span>
+        <span class="side-badge">12 Qs</span>
+      </button>
+      <button type="button" class="side-btn" onclick="selectSection('menti', this)">
+        <span>🔥 รวมจุดหลอก Menti ล้วน</span>
+        <span class="side-badge">Must Read</span>
+      </button>
+      <button type="button" class="side-btn" onclick="setMainMode('quiz')">
+        <span>🎯 ไปหน้าทำ Quiz 60 ข้อ</span>
+        <span class="side-badge">Go</span>
+      </button>
+    </aside>
+
+    <!-- Right Main Content -->
+    <main class="main-content">
+      <!-- ================= STUDY VIEW ================= -->
+      <div id="studyContainer">
+        <div class="search-bar-wrap">
+          <input type="text" id="searchBox" class="search-input" placeholder="🔍 พิมพ์ค้นหาคีย์เวิร์ดด่วน เช่น DSDM, DEEP, MoSCoW, Spike, DoD, Scrum Master..." oninput="filterByKeyword(this.value)" />
+        </div>
+
+        <!-- WEEK 1 COMPACT -->
+        <section class="week-block" data-sec="w1">
+          <div class="week-header">
+            <div class="week-title"><span class="w-pill">WEEK 1</span> Agile Principles & Scrum Concepts</div>
+            <button type="button" class="btn btn-ghost" onclick="jumpToWeekQuiz('1')">ทำข้อสอบ Week 1 (12 ข้อ) →</button>
+          </div>
+          <div class="cards-grid">
+            <div class="mini-card">
+              <h3>⚡ Agile Manifesto (4 Values)</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">Individuals & interactions</span> over processes & tools <em>(สำคัญเท่ากันทั้งคู่!)</em></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Working software</span> over comprehensive documentation</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Customer collaboration</span> over contract negotiation</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Responding to change</span> over following a plan</div></li>
+                <li><span class="kv-dot">•</span><div><strong>จำขึ้นใจ:</strong> ฝั่งขวา (Plan, Doc, Contract, Process) <strong>ยังสำคัญและยังต้องทำ</strong> แค่ให้คุณค่าฝั่งซ้ายมากกว่า</div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>📐 Timeboxing & DSDM Triangle</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">Timeboxing</span> = จัดการเวลาด้วย <strong>Hard Deadline</strong> งานไม่เสร็จ <strong>ห้ามขยายเวลาเด็ดขาด</strong></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Traditional</span> = ล็อก Features ตายตัว → เวลาและงบบานปลาย</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">DSDM Approach</span> = ล็อก <strong>Time, Cost, Quality</strong> คงที่ → ปรับยืดหยุ่นตัวแปร <span class="hl">Features (Vary)</span></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Stepwise Refinement</span> = โฟกัสเรื่องสำคัญสุดก่อน ทำทีละ <strong>Feature by Feature</strong></div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>💎 คีย์เวิร์ด 12 Agile Principles & Heart of Agile</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><strong>ข้อ 1 Satisfy Customer:</strong> ส่งมอบซอฟต์แวร์ที่มี <strong>Value อย่างต่อเนื่องสม่ำเสมอ</strong> (ไม่ใช่ลดงบ/ลดราคา)</div></li>
+                <li><span class="kv-dot">•</span><div><strong>ข้อ 2 Deliver Frequently:</strong> ใช้คำว่า <span class="hl">Deliver</span> (ไม่ใช่ Release เพราะ Release เป็นสิทธิ์ฝั่งลูกค้า)</div></li>
+                <li><span class="kv-dot">•</span><div><strong>ข้อ 6 & 9 & 10:</strong> สื่อสารดีสุดคือ <strong>Face-to-face</strong> | <strong>Simplicity</strong> = ลดงานที่ไม่จำเป็น | <strong>Working software</strong> คือตัววัดความก้าวหน้าหลัก (ข้อ 10)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Heart of Agile (4 คำ)</span> = <strong>Collaborate, Deliver, Reflect, Improve</strong> <em>(ไม่มีคำว่า Estimate!)</em></div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>🏛️ ต้นกำเนิด Scrum & 3 เสาหลัก Empirical</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><strong>New Product Dev Game:</strong> หัวใจคือ <span class="hl">Speed and Flexibility</span> ทำงานแบบทีมรักบี้ (เคลื่อนที่เป็นก้อนเดียวกัน)</div></li>
+                <li><span class="kv-dot">•</span><div><strong>Scrum คือ:</strong> Lightweight, Simple to understand, Difficult to master</div></li>
+                <li><span class="kv-dot">•</span><div><strong>3 Empirical Pillars (ออกสอบชัวร์):</strong><br/>
+                  1. <span class="hl">Transparency</span> เห็นชัดเจน + เข้าใจตรงกันด้วยมาตรฐานเดียวกัน (เช่น DoD)<br/>
+                  2. <span class="hl">Inspection</span> ตรวจหาความเบี่ยงเบนบ่อยๆ<br/>
+                  3. <span class="hl">Adaptation</span> ปรับแก้ให้เร็วที่สุดเมื่อออกนอกลู่ทาง</div></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menti-alert" data-menti="true">
+            <div class="menti-alert-title">🔥 จุดหลอก Menti Week 1 ที่ อ.โอฬาร เน้น</div>
+            <div class="menti-grid">
+              <div class="menti-item">❌ <strong>หลอก:</strong> งานใน Timebox ไม่เสร็จให้ขยาย Deadline → <strong>ตอบ: ผิด (Hard deadline ห้ามขยาย)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ใน DSDM ปรับเปลี่ยน Quality ได้ → <strong>ตอบ: ผิด (ตัวที่ Vary ได้คือ Features)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ลูกค้าขอเปลี่ยนอะไรต้องกด Accept ทันทีโดยไม่ดูผล → <strong>ตอบ: ผิด</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> Interaction สำคัญกว่า Individual → <strong>ตอบ: ผิด (สำคัญเท่ากันในมุมมอง อ.โอฬาร)</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WEEK 2 COMPACT -->
+        <section class="week-block" data-sec="w2">
+          <div class="week-header">
+            <div class="week-title"><span class="w-pill">WEEK 2</span> Scrum Overview, Phases & Events</div>
+            <button type="button" class="btn btn-ghost" onclick="jumpToWeekQuiz('2')">ทำข้อสอบ Week 2 (12 ข้อ) →</button>
+          </div>
+          <div class="cards-grid">
+            <div class="mini-card">
+              <h3>🔄 3 Scrum Phases & การวางแผน</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">Pregame</span> (Planning & Architecture) = <strong>Defined process</strong></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Game</span> (Development Sprints) = <strong>Empirical process เพียงเฟสเดียว!</strong></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Postgame</span> (Closure / เตรียมปล่อยระบบ) = <strong>Defined process</strong></div></li>
+                <li><span class="kv-dot">•</span><div><strong>การวางแผนใน Scrum:</strong> ไม่ใช้ Detailed Up-front ล้วน (เพราะเกิด <strong>WASTE</strong>) และไม่ใช้ JIT ล้วน แต่ต้อง <span class="hl">Balance Up-front & Just-in-Time</span></div></li>
+                <li><span class="kv-dot">•</span><div><strong>Multilevel Planning:</strong> Vision → Roadmap → Release → Sprint → Daily</div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>👥 Accountability vs Responsibility & Team</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">Responsibility</span> = หน้าที่ว่าใครทำชิ้นไหน (<em>Who does what tasks</em>) แชร์กันได้</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Accountability</span> = ความเป็นเจ้าของผลลัพธ์สุดท้าย (<em>Ownership of the outcome</em>)</div></li>
+                <li><span class="kv-dot">•</span><div><strong>การส่งมอบ Increment:</strong> เป็น Accountability ของ <span class="hl">ทั้ง Scrum Team ร่วมกัน</span> (ไม่มีหัวหน้าหรือคนเดียวรับผิดชอบ)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Cross-functional</span> = รวมกันทั้งทีม (Collectively) แล้วมีทักษะครบ (ไม่ต้องเก่งทุกอย่างในคนเดียว)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Self-managing</span> = ทีมตัดสินใจกันเองว่าใครทำอะไร เมื่อไหร่ อย่างไร</div></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="compact-table-wrap">
+            <table class="compact-table">
+              <thead>
+                <tr>
+                  <th>Scrum Event</th>
+                  <th>เมื่อไหร่</th>
+                  <th>4 สัปดาห์</th>
+                  <th>2 สัปดาห์</th>
+                  <th>1 สัปดาห์</th>
+                  <th>จุดเน้นสำคัญ (ออกสอบ)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sprint</strong></td>
+                  <td>ต่อเนื่องทันที</td>
+                  <td>4 wks</td>
+                  <td>2 wks</td>
+                  <td>1 wk</td>
+                  <td>ระยะเวลาต้องคงที่ (<span class="hl">Consistent duration</span>) ไม่เปลี่ยนไปมา</td>
+                </tr>
+                <tr>
+                  <td><strong>Sprint Planning</strong></td>
+                  <td>วันแรกของ Sprint</td>
+                  <td>8 ชม. (4+4)</td>
+                  <td>4 ชม. (2+2)</td>
+                  <td>2 ชม. (1+1)</td>
+                  <td>ตอบ What & How / Dev เป็นผู้ทำ Commitment (PO/SM บังคับไม่ได้)</td>
+                </tr>
+                <tr>
+                  <td><strong>Daily Scrum</strong></td>
+                  <td>ทุกวัน เวลา/ที่เดิม</td>
+                  <td>15 นาที</td>
+                  <td>15 นาที</td>
+                  <td>15 นาที</td>
+                  <td>เรียกอีกชื่อว่า <span class="hl">Stand-up meeting</span> เน้นซิงก์งาน (แก้ปัญหาคุยหลังจบ)</td>
+                </tr>
+                <tr>
+                  <td><strong>Sprint Review</strong></td>
+                  <td>วันสุดท้าย</td>
+                  <td>4 ชม.</td>
+                  <td>2 ชม.</td>
+                  <td>1 ชม.</td>
+                  <td>เชิญ <strong>Stakeholders</strong> มาตรวจดู <strong>Product</strong> เพื่อเอา Feedback (ไม่ใช่ Status meeting)</td>
+                </tr>
+                <tr>
+                  <td><strong>Sprint Retrospective</strong></td>
+                  <td>วันสุดท้าย</td>
+                  <td>3–4 ชม.</td>
+                  <td>2 ชม.</td>
+                  <td>1 ชม.</td>
+                  <td>ตรวจและปรับ <strong>Process</strong> เพื่อให้ได้ <span class="hl">Actionable improvements</span> รอบหน้า</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="menti-alert" data-menti="true">
+            <div class="menti-alert-title">🔥 จุดหลอก Menti Week 2 ที่คนผิดเกินครึ่งห้อง!</div>
+            <div class="menti-grid">
+              <div class="menti-item">❌ <strong>หลอก:</strong> ตอนเริ่มโปรเจกต์ (Beginning of project) เริ่มด้วย Sprint Planning → <strong>ตอบ: ผิด! (ต้องทำ Product/Release Planning ก่อน)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> Developer แต่ละคนต้องมีครบทุกสกิล → <strong>ตอบ: ผิด (รวมกันทั้งทีมแบบ Collective)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ระยะเวลา Sprint เปลี่ยนไปเรื่อยๆ ในแต่ละรอบ → <strong>ตอบ: ผิด (ต้อง Consistent)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ถ้าทีมทำงานเข้ากันดีอยู่แล้ว ไม่ต้องทำ Retrospective → <strong>ตอบ: ผิด (ต้องทำทุก Sprint)</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WEEK 3 COMPACT -->
+        <section class="week-block" data-sec="w3">
+          <div class="week-header">
+            <div class="week-title"><span class="w-pill">WEEK 3</span> Product Backlog, User Stories, DEEP & MoSCoW</div>
+            <button type="button" class="btn btn-ghost" onclick="jumpToWeekQuiz('3')">ทำข้อสอบ Week 3 (12 ข้อ) →</button>
+          </div>
+          <div class="cards-grid">
+            <div class="mini-card">
+              <h3>📝 Product Backlog & User Story</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><strong>Product Backlog:</strong> ถังรวมงานที่เดียวของ Product (<span class="hl">Single source of work</span>) มี 4 Attributes: <em>Description, Order, Estimate, Value</em></div></li>
+                <li><span class="kv-dot">•</span><div><strong>Never Complete:</strong> ไม่มีวันเสร็จสมบูรณ์ จนกว่าตัว Product จะ <span class="hl">Retire (เลิกใช้งาน)</span></div></li>
+                <li><span class="kv-dot">•</span><div><strong>User Story (ต้องมี 3 ส่วน):</strong><br/><code>As a &lt;Role&gt;, I want to &lt;Action&gt; so that &lt;Benefit/Value&gt;</code></div></li>
+                <li><span class="kv-dot">•</span><div><strong>จุดประสงค์ User Story:</strong> เป็นตัวตั้งต้นในการพูดคุย (<span class="hl">Placeholder for a conversation</span>) กับ PO</div></li>
+                <li><span class="kv-dot">•</span><div><strong>ลำดับขนาด:</strong> Epics (เดือน) → Features (สัปดาห์) → Stories (วัน) → Tasks (ชม.)</div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>🔍 คุณลักษณะ DEEP & 7 วิธีหั่น PBI</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">D</span>etailed appropriately = ตัวบนที่จะทำเร็วๆ นี้เล็กและละเอียดมาก ส่วนตัวล่างใหญ่และยังไม่ต้องละเอียด (ไม่เท่ากันทุกตัว!)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">E</span>mergent = อัปเดตตลอดเวลา | <span class="hl">E</span>stimated = ประเมินขนาดแล้ว | <span class="hl">P</span>rioritized = จัดลำดับตาม <em>Value, Size, Risk, Learn Fast</em></div></li>
+                <li><span class="kv-dot">•</span><div><strong>การหั่น PBI (Splitting):</strong> หั่นแนวตั้งให้แต่ละชิ้นยังเป็น <span class="hl">Working, demonstrable software</span> (ไม่หั่นแยกเป็น Technical task)</div></li>
+                <li><span class="kv-dot">•</span><div><strong>7 วิธีหั่น:</strong> 1) Operations (CRUD) 2) Roles 3) Data types/parameters 4) Workflow steps 5) Happy/Unhappy flow 6) Business rules 7) Optimize now vs later</div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>📊 Fixed Date Release & MoSCoW</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">MRFs (Minimum Releasable Features)</span> = ชุดฟีเจอร์ Must-have เล็กที่สุดที่ต้องมี ควรตั้งไว้ที่ <strong>60%–70%</strong> ของเวลาทั้งหมด (เผื่อ Delay และ Emergent MRF)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Must have (~60%)</span> = ขาดไม่ได้เด็ดขาด <strong>ไม่มี Workaround (No workaround)</strong></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Should have (~20%)</span> = สำคัญแต่ไม่วิกฤต มี <strong>Workaround ชั่วคราว</strong> ได้</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Could have (~20%)</span> = น่ามีแต่ผลกระทบน้อยกว่า เป็น Buffer</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Won't have (this time)</span> = ตกลงว่ายังไม่ทำในรอบนี้ <em>(แต่อาจทำใน Release ถัดไปได้!)</em></div></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menti-alert" data-menti="true">
+            <div class="menti-alert-title">🔥 จุดหลอก Menti Week 3 ที่ อ.โอฬาร เน้น</div>
+            <div class="menti-grid">
+              <div class="menti-item">❌ <strong>หลอก:</strong> User Story มีแค่ 2 ส่วน (Role + Action) → <strong>ตอบ: ผิด (ต้องมี so that Benefit/Value เป็นส่วนที่ 3)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ตัว D ใน DEEP คือ Detailed and documented → <strong>ตอบ: ผิด (คือ Detailed appropriately)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> PBI ทุกตัวใน Backlog ต้องมีรายละเอียดเท่ากัน → <strong>ตอบ: ผิด (ตัวบนละเอียดกว่าตัวล่าง)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> Won't have แปลว่าตัดทิ้งถาวรไม่ทำอีกเลย → <strong>ตอบ: ผิด (อาจเป็น Must-have ใน Release 2 ได้)</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WEEK 4 COMPACT -->
+        <section class="week-block" data-sec="w4">
+          <div class="week-header">
+            <div class="week-title"><span class="w-pill">WEEK 4</span> Scrum Sprints, Capacity, Spike & Execution</div>
+            <button type="button" class="btn btn-ghost" onclick="jumpToWeekQuiz('4')">ทำข้อสอบ Week 4 (12 ข้อ) →</button>
+          </div>
+          <div class="cards-grid">
+            <div class="mini-card">
+              <h3>🎯 Sprint Goal, DoD vs Acceptance Criteria</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><strong>ระหว่าง Sprint:</strong> Scope ปรับคุยกับ PO ได้ถ้าไม่กระทบ <span class="hl">Sprint Goal</span> และคุณภาพห้ามลดลง</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Sprint Backlog</span> = Sprint Goal + Selected PBIs + Tasks (แต่ละ Task ≤ 8 ชม.) <em>*ไม่รวม DoD*</em></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Definition of Done (DoD)</span> = Checklist มาตรฐานกลางที่บังคับใช้กับ <strong>ทุกๆ PBI (Applies to ALL PBIs)</strong></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Acceptance Criteria</span> = เงื่อนไขตรวจรับเฉพาะของแต่ละ PBI (<strong>Item-specific</strong>) เขียนได้แบบ <em>Scenario (Given/When/Then)</em> หรือ <em>Rule-oriented</em></div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>🧮 Team Capacity & การทำ Spike</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><strong>การคิด Capacity:</strong> ห้ามตั้งเต็ม 80 ชม. ใน 2 สัปดาห์! ต้องหัก: <em>เวลาลาส่วนตัว + งานนอก Sprint + เวลาประชุม Scrum Events + กัน <span class="hl">Sprint Buffer</span> เผื่องานงอก (Unplanned work)</em></div></li>
+                <li><span class="kv-dot">•</span><div><strong>กฎเหล็ก:</strong> <em>"Don't start what you cannot finish"</em></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Spike</span> = กิจกรรมหาความรู้ (PoC / Prototype) เมื่อประเมินหรือแตก Task ไม่ได้:<br/>
+                  • <strong>Technical Spike:</strong> ถามว่าสร้างอย่างไร / ใช้อะไร (How/Which)<br/>
+                  • <strong>Functional Spike:</strong> ถามว่าระบบและผู้ใช้ควรทำงานอย่างไร (Behavior)</div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>⚙️ Execution, Task Board & Technical Debt</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">ห้ามทำ Mini Waterfall!</span> (วิเคราะห์รวดเดียว → โค้ดรวดเดียว → เทสต์วันสุดท้าย = พังเมื่อหมดเวลา)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Swarming</span> = คนที่ว่างมารุมช่วยทำ PBI ที่เปิดค้างไว้ให้จบก่อนเปิดงานใหม่</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Pair / Triple Programming</span> = ช่วยให้ได้ Fast feedback และกระจายความรู้ (ควรสลับ Role FE/BE ทุก Sprint หรือทุก PBI)</div></li>
+                <li><span class="kv-dot">•</span><div><strong>Task Board:</strong> มีอย่างน้อย 3 สถานะ (<span class="hl">To-do, Doing, Done</span>) + ใส่ Assignee + แนบ Artefacts</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Technical Debt</span> = ทางลัด/โครงสร้างแย่ (เช่น ชื่อตัวแปรแย่, Hard-code URL, CORS allow all, ไม่ดัก Exception, รัน FE ด้วย node.js บน Prod) → แก้ด้วย <span class="hl">Code Refactoring</span></div></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menti-alert" data-menti="true">
+            <div class="menti-alert-title">🔥 จุดหลอก Menti Week 4 ที่ อ.โอฬาร เน้น</div>
+            <div class="menti-grid">
+              <div class="menti-item">❌ <strong>หลอก:</strong> Definition of Done (DoD) นับเป็นส่วนหนึ่งของ Sprint Backlog → <strong>ตอบ: ผิด (เป็นข้อตกลงกลาง ไม่ใช่งานใน Sprint Backlog)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ห้ามเปลี่ยนอะไรเลยใน Sprint แม้ไม่กระทบ Sprint Goal → <strong>ตอบ: ผิด (เปลี่ยนได้ถ้าไม่กระทบ Sprint Goal)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ใน Daily Scrum ให้ถกหาโซลูชันแก้ปัญหาให้จบในวง → <strong>ตอบ: ผิด (15 นาทีเน้น Sync งาน แก้ปัญหาคุยหลังจบ)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ทำ Mini Waterfall ใน Sprint ได้ → <strong>ตอบ: ผิด (Mini Waterfall is a bad idea)</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WEEK 5 COMPACT -->
+        <section class="week-block" data-sec="w5">
+          <div class="week-header">
+            <div class="week-title"><span class="w-pill">WEEK 5</span> Scrum Values, Working Team & Roles</div>
+            <button type="button" class="btn btn-ghost" onclick="jumpToWeekQuiz('5')">ทำข้อสอบ Week 5 (12 ข้อ) →</button>
+          </div>
+          <div class="cards-grid">
+            <div class="mini-card">
+              <h3>❤️ 5 Scrum Values & Working Team</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><span class="hl">5 Scrum Values</span> = <strong>Commitment, Focus, Courage, Openness, Respect</strong> → สร้าง <strong>TRUST</strong></div></li>
+                <li><span class="kv-dot">•</span><div><strong>สมการความเชื่อใจ:</strong> <code>Trust = (Credibility + Reliability + Intimacy) / Self-Orientation</code></div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Working Group</span> = ผู้นำเดี่ยวสั่งการ, รับผิดชอบเดี่ยว, ผลงานแยกชิ้น (Individual work products)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Working Team</span> = แชร์ภาวะผู้นำ, รับผิดชอบร่วมกัน, <strong>ผลงานเป็นของส่วนรวม (Collective work products)</strong></div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>🛠️ 10 ลักษณะของ Developers & ขนาดทีม</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><strong>ขนาดทีม (Right-sized):</strong> กฎทั่วไปคือ <span class="hl">5–9 คน</span> (หรือใน Scrum Guide ≤ 10 คน) ลดปัญหาคนกินแรงเพื่อน (Social loafing)</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">T-shaped skills</span> = รู้ลึกในสายหลัก + รู้กว้างพร้อมข้ามไปช่วยสายอื่น</div></li>
+                <li><span class="kv-dot">•</span><div><span class="hl">Musketeer attitude</span> = <em>"All for one and one for all"</em> ลงเรือลำเดียวกัน</div></li>
+                <li><span class="kv-dot">•</span><div><strong>Focused & Sustainable pace:</strong> ไม่ถือหลายโปรเจกต์พร้อมกันเกินไป และทำงานด้วยจังหวะที่ยั่งยืน</div></li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>👑 Product Owner (PO) vs Scrum Master (SM)</h3>
+              <ul class="kv-list">
+                <li><span class="kv-dot">•</span><div><strong>Product Owner (6 หน้าที่หลัก):</strong> Maximize product value, Manage economics, Participate in planning, Groom backlog, Define & verify acceptance criteria, Collaborate กับทีมและ Stakeholders <em>(ห้ามสั่ง Assign งานย่อยให้ Dev!)</em></div></li>
+                <li><span class="kv-dot">•</span><div><strong>Scrum Master (6 หน้าที่หลัก):</strong><br/>
+                  1. <span class="hl">Coach</span> (เน้นถาม ASK เพื่อให้ทีมแก้ปัญหาเอง)<br/>
+                  2. <span class="hl">Servant leader</span><br/>
+                  3. <span class="hl">Process authority</span> (ดูแลกระบวนการ สั่งงานไม่ได้ ไม่ใช่คนคอยตามจี้งาน)<br/>
+                  4. <span class="hl">Interference shield</span> (กันคนนอกมาดึงคนในทีมกลาง Sprint)<br/>
+                  5. <span class="hl">Impediment remover</span> (แก้อุปสรรคที่เกินอำนาจทีม เช่น คุยกับ VP Operations เรื่อง Server พัง)<br/>
+                  6. <span class="hl">Change agent</span> (ผู้นำการเปลี่ยนแปลงทั้งในทีมและระดับ <strong>Organization</strong>)</div></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menti-alert" data-menti="true">
+            <div class="menti-alert-title">🔥 จุดหลอก Menti Week 5 ที่ อ.โอฬาร เน้น</div>
+            <div class="menti-grid">
+              <div class="menti-item">❌ <strong>หลอก:</strong> มีคนเดียวที่ถูกระบุชื่อ (One named person) รับผิดชอบส่งมอบ Increment → <strong>ตอบ: ผิด (ทั้งทีมรับผิดชอบร่วมกัน)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> Scrum Master สั่งทีมได้ว่าจะต้องหยิบงานไหน และคอยตามงานเหมือน PM → <strong>ตอบ: ผิด (สั่งไม่ได้ และไม่ตามจี้งาน)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> ถ้าทีมมีปัญหาที่แก้เองได้ SM ควรเข้าไปแก้ให้ทันที → <strong>ตอบ: ผิด (ต้องใช้ Coaching ให้ทีมแก้เอง)</strong></div>
+              <div class="menti-item">❌ <strong>หลอก:</strong> PO มีหน้าที่ Assign งานให้ Developer → <strong>ตอบ: ผิด (ทีมจัดการกันเอง)</strong></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================= QUIZ VIEW ================= -->
+      <div id="quizContainer" class="hidden">
+        <div class="quiz-top-panel">
+          <div class="score-strip">
+            <div class="score-box">
+              <div class="lbl">จำนวนข้อที่แสดง</div>
+              <div class="val" id="qStatTotal">60</div>
+            </div>
+            <div class="score-box">
+              <div class="lbl">ตรวจแล้ว</div>
+              <div class="val" id="qStatDone">0 / 60</div>
+            </div>
+            <div class="score-box">
+              <div class="lbl">ตอบถูก</div>
+              <div class="val" style="color:var(--success);" id="qStatRight">0</div>
+            </div>
+            <div class="score-box">
+              <div class="lbl">ความแม่นยำ</div>
+              <div class="val" style="color:var(--primary);" id="qStatPct">0%</div>
+            </div>
+          </div>
+
+          <div class="quiz-toolbar">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+              <select id="qWeekFilter" class="q-select" onchange="renderQuizList()">
+                <option value="all">ทุกสัปดาห์ (60 ข้อ)</option>
+                <option value="1">Week 1 (12 ข้อ)</option>
+                <option value="2">Week 2 (12 ข้อ)</option>
+                <option value="3">Week 3 (12 ข้อ)</option>
+                <option value="4">Week 4 (12 ข้อ)</option>
+                <option value="5">Week 5 (12 ข้อ)</option>
+              </select>
+              <select id="qTypeFilter" class="q-select" onchange="renderQuizList()">
+                <option value="all">ทุกรูปแบบ (Single 40 + Multiple 20)</option>
+                <option value="single">Single Choice (เลือก 1 ข้อ)</option>
+                <option value="multiple">Multiple Choice (เลือกหลายข้อ)</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-ghost" onclick="shuffleQuestions()">🔀 สุ่มข้อสอบ</button>
+              <button type="button" class="btn btn-ghost" onclick="resetAllQuiz()">🔄 เริ่มใหม่</button>
+              <button type="button" class="btn btn-primary" onclick="checkAllVisible()">✅ ตรวจทั้งหมด</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="quizCardsWrap"></div>
+      </div>
+    </main>
+  </div>
+
+<script>
+  const masterQuestions = [{"id": 1, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "จาก Agile Manifesto ที่กล่าวว่า 'Responding to change over following a plan' และ 'Working software over comprehensive documentation' ข้อใดกล่าวถูกต้องที่สุดตามที่อาจารย์เน้นในคลาส?", "options": ["การวางแผน (Plan) และการทำเอกสาร (Documentation) ไม่มีความสำคัญแล้วใน Agile และไม่ต้องทำเลย", "การวางแผน (Plan) และการทำเอกสาร (Documentation) ยังคงมีความสำคัญและยังต้องทำอยู่ เพียงแต่เราให้คุณค่ากับฝั่งซ้ายมากกว่า", "ต้องทำเอกสารให้เสร็จสมบูรณ์ 100% ก่อนเริ่มเขียนโค้ดเสมอ", "การทำตามแผนที่วางไว้ตั้งแต่ต้นสำคัญกว่าการปรับเปลี่ยนตามความต้องการของลูกค้า"], "answer": [1], "explanation": "อ.โอฬาร เน้นใน Menti ข้อที่ 1 ว่า เรื่อง Plan และ Document จริงๆ ยังมีความสำคัญและยังต้องทำอยู่ แม้ว่าจะมีคุณค่าน้อยกว่าฝั่งซ้าย (While there is value in the items on the right, we value the items on the left more)"}, {"id": 2, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "ในการทำงานแบบ Timeboxing หากงานใน Timebox นั้นทำไม่เสร็จเมื่อหมดเวลา ทีมควรขยายเวลา (ขยับ Deadline) ออกไปให้เสร็จใช่หรือไม่?", "options": ["ใช่ ขยายเวลาออกไปจนกว่าฟีเจอร์ทั้งหมดจะเสร็จ", "ผิด เพราะ Timeboxing เป็นการบริหารเวลาที่มี Hard Deadline ห้ามขยายเดดไลน์เด็ดขาด", "ขยายได้ไม่เกิน 50% ของเวลาเดิมหาก Product Owner อนุญาต", "ขยายได้เฉพาะใน Sprint แรกของโปรเจกต์เท่านั้น"], "answer": [1], "explanation": "อ.โอฬาร เฉลยใน Menti ข้อ 2 ว่า 'ผิดนะครับ Timeboxing ไม่ขยายเดดไลน์นะครับ เป็น Hard deadline ขยายไม่ได้'"}, {"id": 3, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "ตามแนวทางการบริหารโปรเจกต์แบบ DSDM (Dynamic Systems Development Method) ปัจจัยใดที่เป็นตัวแปรที่สามารถปรับเปลี่ยนได้ (Variable / Vary)?", "options": ["Time (เวลา)", "Cost (งบประมาณ/ทรัพยากร)", "Quality (คุณภาพ)", "Features (ขอบเขตฟีเจอร์การทำงาน)"], "answer": [3], "explanation": "ในสไลด์ How to manage from DSDM และ Menti ข้อ 3: แนวทาง DSDM จะล็อก (Fixed) Time, Cost และ Quality เอาไว้ ส่วนตัวที่ Vary (ปรับยืดหยุ่นได้) คือ Features"}, {"id": 4, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "ตาม Agile Principle ข้อที่ 1 เราสร้างความพึงพอใจสูงสุดให้แก่ลูกค้า (Satisfy the customer) ด้วยวิธีการใด?", "options": ["การใช้งบประมาณที่น้อยลง (Lower budget) และลดจำนวนคนในทีม", "การส่งมอบซอฟต์แวร์ที่มีคุณค่าตั้งแต่เนิ่นๆ และอย่างต่อเนื่องสม่ำเสมอ (Early and continuous delivery of valuable software)", "การเขียนสัญญาจ้างที่รัดกุมและมีเอกสารคู่มือที่ละเอียดที่สุด", "การรับปากทำทุกฟีเจอร์ที่ลูกค้าขอโดยไม่ตัดทอน"], "answer": [1], "explanation": "อ.โอฬาร เน้นใน Menti ข้อ 4 ว่า เราไม่ได้ทำให้ลูกค้าพึงพอใจผ่านการใช้งบประมาณที่น้อยลง แต่ผ่านการส่งมอบงานที่มีคุณค่า (Valuable software) อย่างรวดเร็วและต่อเนื่องสม่ำเสมอ"}, {"id": 5, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "ใน Agile Principle ข้อที่ 2 ('...working software frequently, from a couple of weeks to a couple of months') ใช้คำกริยาใด และเพราะเหตุใด?", "options": ["ใช้คำว่า Release เพราะนักพัฒนาต้องปล่อยระบบขึ้นใช้งานจริงให้ลูกค้าทุกสัปดาห์โดยไม่ต้องถามใคร", "ใช้คำว่า Deliver เพราะทีมพัฒนาทำหน้าที่ส่งมอบซอฟต์แวร์ที่พร้อมใช้งาน ส่วนการตัดสินใจ Release ขึ้นอยู่กับฝั่งลูกค้า/ธุรกิจ (Client/Business)", "ใช้คำว่า Deploy เพราะหมายถึงการติดตั้งลงเซิร์ฟเวอร์ทดสอบเท่านั้น", "ใช้คำว่า Commit เพราะหมายถึงการส่งโค้ดขึ้น Git"], "answer": [1], "explanation": "อ.โอฬาร เน้นใน Menti ข้อ 5 ว่า Agile Principle ข้อ 2 พูดถึงคำว่า 'Deliver' (Deliver working software frequently) ไม่ได้ใช้คำว่า Release เพราะการจะ Release ออกสู่ตลาดเมื่อไหร่เป็นอำนาจตัดสินใจของฝั่ง Client/Business"}, {"id": 6, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "ในมุมมองของ อ.โอฬาร ที่อธิบายเรื่อง 'Individuals and interactions' ใน Agile Manifesto ข้อใดกล่าวถูกต้อง?", "options": ["Interactions สำคัญกว่า Individuals เสมอ", "Individuals สำคัญกว่า Interactions เสมอ", "ทั้ง Individuals (ตัวบุคคล/ความสามารถ) และ Interactions (การมีปฏิสัมพันธ์ทำงานร่วมกัน) มีความสำคัญเท่าๆ กัน", "สำคัญเฉพาะตอนทำ Daily Scrum เท่านั้น"], "answer": [2], "explanation": "อ.โอฬาร เน้นใน Menti ข้อ 7 ว่า ในมุมมองที่อาจารย์สอน Interaction ไม่ได้สำคัญกว่า Individual แต่ทั้งคู่มีความสำคัญเท่าๆ กัน (ต้องมีทั้งคนที่มีทักษะความสามารถและการสื่อสารทำงานร่วมกันที่ดี)"}, {"id": 7, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "ข้อใดไม่ใช่ 1 ใน 4 คำหลักของ 'Heart of Agile' ของ Dr. Alistair Cockburn (My Agile is 'Fast Feedback')?", "options": ["Collaborate", "Deliver", "Estimate", "Reflect และ Improve"], "answer": [2], "explanation": "Heart of Agile มี 4 คำหลักคือ Collaborate, Deliver, Reflect และ Improve ส่วนคำว่า Estimate เป็นตัวเลือกหลอกใน Menti ข้อ 9"}, {"id": 8, "week": 1, "type": "single", "badge": "Menti Quiz W1", "question": "ตามบทความ 'The New New Product Development Game' (Takeuchi & Nonaka, 1986) ปัจจัยใดที่มีความสำคัญจำเป็นอย่างยิ่ง (Essential) สำหรับการพัฒนาผลิตภัณฑ์ใหม่ในโลกที่มีการแข่งขันสูง?", "options": ["Strict hierarchy and detailed documentation", "Speed and flexibility (ความรวดเร็วและความยืดหยุ่น)", "Relay race approach and phase-gate control", "Lowest cost and outsourcing"], "answer": [1], "explanation": "ในสไลด์หน้า 31 และ Menti ข้อ 10 ระบุชัดเจนว่า 'For new product development, speed and flexibility are essential' และใช้แนวทางแบบ Rugby (ทีมเคลื่อนที่ไปด้วยกันเป็นกลุ่มก้อน) แทนแบบวิ่งผลัด (Relay race)"}, {"id": 9, "week": 1, "type": "multiple", "badge": "Multiple Choice W1", "question": "[เลือกหลายคำตอบ] ข้อใดคือ 3 เสาหลักของทฤษฎีการควบคุมกระบวนการเชิงประจักษ์ (3 Empirical Scrum Pillars)?", "options": ["Transparency (ความโปร่งใส เห็นตรงกันและเข้าใจตรงกันด้วยมาตรฐานเดียวกัน)", "Inspection (การตรวจสอบความคืบหน้าและสิ่งผิดปกติอย่างสม่ำเสมอ)", "Adaptation (การปรับปรุงแก้ไขให้เร็วที่สุดเมื่อพบความเบี่ยงเบน)", "Prediction (การพยากรณ์แผนงานล่วงหน้าแบบตายตัว)", "Delegation (การกระจายคำสั่งจากหัวหน้างาน)"], "answer": [0, 1, 2], "explanation": "3 เสาหลักของ Empirical Process Control ใน Scrum ได้แก่ Transparency, Inspection และ Adaptation (อ.โอฬาร ย้ำตอนท้ายคลาสที่ 1 ให้จำทั้งชื่อและความหมายของทั้ง 3 ตัวนี้)"}, {"id": 10, "week": 1, "type": "multiple", "badge": "Multiple Choice W1", "question": "[เลือกหลายคำตอบ] ข้อใดสอดคล้องกับหลักการ 12 ข้อของ Agile (12 Principles behind the Agile Manifesto)?", "options": ["Working software is the primary measure of progress (ซอฟต์แวร์ที่ใช้งานได้จริงเป็นตัววัดความก้าวหน้าหลัก - ข้อ 10)", "Welcome changing requirements, even late in development (เปิดรับการเปลี่ยนแปลงแม้ในช่วงท้ายของการพัฒนา เพื่อสร้างความได้เปรียบให้ลูกค้า - ข้อ 3)", "The most efficient and effective method of conveying information is face-to-face conversation (การพูดคุยแบบซึ่งหน้ามีประสิทธิภาพสูงสุด - ข้อ 6)", "Simplicity — the art of maximizing the amount of work not done — is essential (ความเรียบง่าย หรือศิลปะของการลดงานที่ไม่จำเป็นต้องทำ - ข้อ 9)", "เมื่อลูกค้าขอเปลี่ยน Requirement ต้องกด Accept ทันทีทุกกรณีโดยไม่ต้องประเมินผลกระทบใดๆ"], "answer": [0, 1, 2, 3], "explanation": "ตัวเลือกที่ 1–4 คือ Agile Principles ข้อ 10, 3, 6 และ 9 ตามลำดับ ส่วนตัวเลือกสุดท้ายผิดตามที่ อ.โอฬาร เฉลยใน Menti ข้อ 6 ว่าการเปิดรับการเปลี่ยนแปลงไม่ได้แปลว่าต้องหลับหูหลับตา Accept โดยไม่ดูผลกระทบหรือคุณค่า"}, {"id": 11, "week": 1, "type": "multiple", "badge": "Multiple Choice W1", "question": "[เลือกหลายคำตอบ] ข้อใดเป็นคุณลักษณะของบริษัทชั้นนำ (เช่น Honda, Canon, Fuji-Xerox) ใน 'The New New Product Development Game'?", "options": ["Built-in instability (การตั้งโจทย์ที่ท้าทายให้เกิดแรงผลักดัน)", "Self-organizing project teams (ทีมที่จัดการตัวเองได้)", "Overlapping development phases (เฟสการพัฒนาที่เหลื่อมซ้อนกัน ไม่รอส่งไม้ต่อแบบวิ่งผลัด)", "Multilearning และ Organizational transfer of learning (การเรียนรู้หลากหลายด้านและส่งต่อความรู้ในองค์กร)", "Strict command-and-control (การสั่งการแบบรวมศูนย์จากบนลงล่าง)"], "answer": [0, 1, 2, 3], "explanation": "คุณลักษณะ 6 ประการใน The New New Product Development Game ได้แก่ Built-in instability, Self-organizing project teams, Overlapping development phases, Multilearning, Subtle control (ไม่ใช่ Strict command-and-control) และ Organizational transfer of learning"}, {"id": 12, "week": 1, "type": "multiple", "badge": "Multiple Choice W1", "question": "[เลือกหลายคำตอบ] ข้อใดกล่าวถูกต้องเกี่ยวกับนิยามของ Scrum Framework ตามสไลด์ Class 1?", "options": ["เป็น Lightweight framework สำหรับจัดการปัญหาที่ซับซ้อนและเปลี่ยนแปลงตลอดเวลา (Complex adaptive problems)", "เข้าใจง่าย (Simple to understand) แต่เชี่ยวชาญได้ยาก (Difficult to master)", "เป็น Timebox-based project management framework ที่ไม่ได้บังคับระบุวิธีเขียนโค้ด (Doesn't specify software dev practices)", "เชื่อว่ากระบวนการพัฒนาระบบเป็นสิ่งที่คาดเดาได้ 100% ตั้งแต่วันแรกจึงสามารถเขียนแผนตายตัวได้"], "answer": [0, 1, 2], "explanation": "Scrum มองว่ากระบวนการพัฒนาระบบมีความซับซ้อนและคาดเดาได้ยาก (Unpredictable, complicated process) จึงใช้ชุดกิจกรรมที่ยืดหยุ่นควบคู่กับกลไกควบคุมความเสี่ยงและ Empirical process control"}, {"id": 13, "week": 2, "type": "single", "badge": "Menti Quiz W2", "question": "ใน Scrum Phases ทั้ง 3 เฟส (Pregame, Game, Postgame) กระบวนการแบบ Empirical Process ถูกนำมาใช้ในเฟสใด?", "options": ["ถูกใช้ในทุกเฟสทั้ง Pregame, Game และ Postgame", "ใช้เฉพาะในเฟส Game (Development Sprints) เท่านั้น ส่วน Pregame และ Postgame เป็น Defined Process", "ใช้เฉพาะในเฟส Pregame (Planning & Architecture) เท่านั้น", "ใช้เฉพาะในเฟส Postgame (Closure) เท่านั้น"], "answer": [1], "explanation": "อ.โอฬาร เฉลยใน Menti W2 ข้อ 1 และสไลด์หน้า 6–7 ว่า Planning (Pregame) และ Closure (Postgame) เป็น Defined processes ส่วนเฟสที่เป็น Empirical process คือ Sprint phase (Game) เท่านั้น"}, {"id": 14, "week": 2, "type": "single", "badge": "Menti Quiz W2", "question": "ในมุมมองการทำงาน หากเราต้องการเป็นเจ้าของผลลัพธ์ (Ownership of the outcome) และรับผิดชอบต่อความสำเร็จหรือล้มเหลวของงาน เราต้องมีสิ่งใด?", "options": ["Responsibility เพียงอย่างเดียว", "Accountability", "Micro-management", "Individual work products"], "answer": [1], "explanation": "Responsibility คือหน้าที่ว่าใครต้องทำงานชิ้นไหน (Who does what tasks) ส่วน Accountability คือความเป็นเจ้าของผลลัพธ์สุดท้าย (Being answerable for the outcome / Ownership of the outcome) ซึ่ง อ.โอฬาร ย้ำใน Menti W2 ข้อ 2"}, {"id": 15, "week": 2, "type": "single", "badge": "Menti Quiz W2", "question": "ข้อความต่อไปนี้ถูกหรือผิด: 'ในการทำงานแบบ Scrum สมาชิก Developer แต่ละคนจำเป็นต้องมีทักษะ (Skills) ทุกอย่างครบถ้วนในตัวเองเพื่อให้ทำงานใน Sprint นั้นสำเร็จ'?", "options": ["ถูก เพราะทุกคนต้องทำแทนกันได้ 100% ตั้งแต่วันแรก", "ผิด เพราะคำว่า Cross-functional หมายถึงสมาชิกในทีมเมื่อรวมกันแล้ว (Collectively) มีทักษะครบถ้วนในการสร้างคุณค่า ไม่ใช่คนเดียวต้องเก่งทุกอย่าง", "ถูก เฉพาะคนที่เป็นหัวหน้าทีม Developer เท่านั้นที่ต้องมีครบทุกสกิล", "ผิด เพราะทักษะทางเทคนิคเป็นหน้าที่ของ Scrum Master"], "answer": [1], "explanation": "อ.โอฬาร เฉลยใน Menti W2 ข้อ 3 ว่า เป็นเท็จ (False) เพราะ Cross-functional หมายถึงรวมกันทั้งทีม (Collectively) แล้วมีทักษะครบ ไม่ใช่แต่ละคนต้องมีครบทุกสกิล"}, {"id": 16, "week": 2, "type": "single", "badge": "Menti Quiz W2", "question": "ใน Scrum Team ใครเป็นผู้ที่มี Accountability ในการสร้างและส่งมอบ Increment ที่มีคุณค่าและใช้งานได้จริงในแต่ละ Sprint?", "options": ["หัวหน้าทีม (Team Leader) ที่ถูกแต่งตั้งไว้ตั้งแต่ต้นโปรเจกต์ 1 คน", "Scrum Master เพียงผู้เดียว", "Product Owner เพียงผู้เดียว", "ทั้งทีม Scrum (The entire Scrum Team) ร่วมกัน ไม่ใช่คนใดคนหนึ่ง"], "answer": [3], "explanation": "ในสไลด์หน้า 15 และ Menti W2 ข้อ 4 (รวมถึง W5 ข้อ 1): 'The entire Scrum Team is accountable for creating a valuable, useful Increment every Sprint' ไม่มี Team Leader ที่รับผิดชอบคนเดียว"}, {"id": 17, "week": 2, "type": "single", "badge": "Menti Quiz W2", "question": "หลักการวางแผนใน Scrum (Scrum Planning Principles) ข้อใดกล่าวถูกต้อง?", "options": ["ใช้เฉพาะ Just-in-time (JIT) planning 100% โดยไม่วางแผนล่วงหน้าเลย", "ใช้ Detailed Up-front Planning วางแผนละเอียดทุกขั้นตอนตั้งแต่วันแรก", "สร้างสมดุล (Good balance) ระหว่าง Up-front planning และ Just-in-time (JIT) planning ผ่านการวางแผนหลายระดับ (Multilevel planning)", "วางแผนเฉพาะตอนจบแต่ละ Sprint เท่านั้น"], "answer": [2], "explanation": "อ.โอฬาร เฉลยใน Menti W2 ข้อ 5 ว่า Scrum ไม่ได้ใช้แต่ Just-in-time อย่างเดียว แต่ต้องสร้างสมดุล (Balance) ระหว่างการวางแผนเบื้องต้น (Up-front) กับการวางแผนเมื่อถึงเวลาจำเป็น (Just-in-time)"}, {"id": 18, "week": 2, "type": "single", "badge": "Menti Quiz W2", "question": "ข้อควรระวัง (ข้อหลอกยอดฮิตใน Menti W2 ข้อ 6): ตอนเริ่มต้นโปรเจกต์ใหม่ (At the beginning of a project) กิจกรรมแรกที่เราทำคือ Sprint Planning ทันทีใช่หรือไม่?", "options": ["ใช่ เริ่มโปรเจกต์ปุ๊บต้องทำ Sprint Planning ทันที", "ไม่ใช่ ตอนต้นโปรเจกต์ (Pregame / Multilevel Planning) เราต้องทำระดับ Vision, Product Roadmap, Product Backlog และ Release Planning ก่อน แล้วจึงค่อยทำ Sprint Planning ตอนต้นของแต่ละ Sprint", "ไม่ใช่ เพราะ Sprint Planning ต้องทำตอนท้ายของแต่ละ Sprint", "ใช่ แต่ทำเฉพาะกับผู้บริหารเท่านั้น"], "answer": [1], "explanation": "อ.โอฬาร เน้นใน Menti W2 ข้อ 6 ว่า โจทย์หลอกคำว่า 'beginning of project' (ไม่ใช่ beginning of sprint)! ตอนต้นโปรเจกต์เราทำ Product/Release Planning ก่อน ส่วน Sprint Planning ทำตอนต้นของแต่ละ Sprint"}, {"id": 19, "week": 2, "type": "single", "badge": "Menti Quiz W2", "question": "ข้อใดกล่าวถูกต้องเกี่ยวกับระยะเวลาของ Sprint (Sprint Duration) และการจัดทำ Sprint Retrospective?", "options": ["ระยะเวลาของแต่ละ Sprint ควรปรับเปลี่ยนไปเรื่อยๆ ตามปริมาณงาน และถ้าทีมทำงานเข้ากันได้ดีแล้วก็ไม่ต้องทำ Sprint Retrospective", "ระยะเวลาของ Sprint ต้องคงที่สม่ำเสมอ (Consistent durations) ตลอดการพัฒนา และแม้ทีมจะทำงานร่วมกันได้ดีอยู่แล้วก็ยังต้องทำ Sprint Retrospective เสมอเพื่อพัฒนาอย่างต่อเนื่อง", "Sprint Planning จะทำในวันสุดท้ายของ Sprint เพื่อสรุปงานที่ทำเสร็จ", "Daily Scrum ใช้เวลาได้ไม่จำกัดจนกว่าจะแก้ปัญหาทางเทคนิคจบ"], "answer": [1], "explanation": "สรุปจาก Menti W2 ข้อ 7, 8, 10: ระยะเวลาของ Sprint ต้อง Consistent (ไม่เปลี่ยนไปมา), Sprint Planning ทำตอนต้น Sprint, และ Sprint Retrospective ต้องทำทุก Sprint แม้ทีมจะทำงานได้ดีอยู่แล้วก็ตาม"}, {"id": 20, "week": 2, "type": "single", "badge": "Slide & Lecture W2", "question": "หากทีมของคุณกำหนดความยาวของ Sprint ไว้ที่ 1 สัปดาห์ (1-week Sprint) ตามตารางสัดส่วน Timebox มาตรฐาน เวลาของกิจกรรม Sprint Review และ Sprint Retrospective จะเป็นเท่าใด?", "options": ["Sprint Review 4 ชั่วโมง / Sprint Retrospective 4 ชั่วโมง", "Sprint Review 1 ชั่วโมง / Sprint Retrospective 1 ชั่วโมง (และ Daily Scrum 15 นาทีเท่าเดิมทุกวัน)", "Sprint Review 15 นาที / Sprint Retrospective 15 นาที", "ไม่ต้องทำ Sprint Review ใน Sprint ที่สั้นกว่า 2 สัปดาห์"], "answer": [1], "explanation": "จากตาราง Timebox หน้า 41 และที่ อ.โอฬาร คำนวณในห้อง: สำหรับ Sprint 4 สัปดาห์ จะใช้ Review 4 ชม. ดังนั้นถ้า Sprint 1 สัปดาห์ จะเหลือเวลาทำ Review 1 ชม. และ Retrospective 1 ชม. (ส่วน Daily Scrum คงที่ 15 นาทีเสมอ)"}, {"id": 21, "week": 2, "type": "multiple", "badge": "Multiple Choice W2", "question": "[เลือกหลายคำตอบ] ข้อใดคือความแตกต่างที่สำคัญระหว่าง Daily Scrum กับ Sprint Review ตามที่อาจารย์เน้นย้ำ?", "options": ["Daily Scrum เป็นกิจกรรมสำหรับ Developers เพื่อซิงก์งานประจำวัน (15 นาที) ว่าทำอะไรไปแล้ว จะทำอะไรต่อ และติดปัญหาอะไร", "Sprint Review เชิญ Stakeholders มาร่วมด้วย เพื่อตรวจสอบ (Inspect) ตัว Product Increment ให้ได้ลองเล่นและเก็บ Feedback ไปปรับปรุง Product Backlog", "Sprint Review เป็นการประชุมแบบไม่เป็นทางการ (Informal meeting) ไม่ใช่แค่การรายงานสถานะ (Not a status meeting) หรือแค่เดโมให้จบไป", "Daily Scrum เรียกอีกชื่อหนึ่งได้ว่า Stand-up meeting", "Sprint Review มีไว้เพื่อหาคนผิดเมื่อส่งงานไม่ทันและลงโทษสมาชิกในทีม"], "answer": [0, 1, 2, 3], "explanation": "อ.โอฬาร เน้นในคลาสที่ 2 ว่า Daily Scrum (Stand-up meeting) เป็นการซิงก์งานในทีม ส่วน Sprint Review ต้องดึง Stakeholders เข้ามาลองดู Product และให้ Feedback (ไม่ใช่ Status meeting)"}, {"id": 22, "week": 2, "type": "multiple", "badge": "Multiple Choice W2", "question": "[เลือกหลายคำตอบ] ข้อเสียของการวางแผนล่วงหน้าอย่างละเอียดทั้งหมดตั้งแต่ต้น (Con of Detailed Up-front Planning) คืออะไร?", "options": ["เกิดความสูญเปล่า (WASTE) จากงานหรือแผนที่ต้องถูกทิ้งเมื่อสถานการณ์เปลี่ยน (Work that will be discarded)", "เสียเวลาและแรงงานในการคอยอัปเดตเอกสารแผนงานขนาดใหญ่ (Effort to update)", "เสียโอกาสในการนำเวลาไปทำกิจกรรมที่มีคุณค่าสูงกว่า เช่น การสร้าง Working software", "ทีมอาจยึดติดกับการทำตามแผน (Follow the plan) แทนที่จะปรับแผนให้สอดคล้องกับความจริง (Adjust the plan)"], "answer": [0, 1, 2, 3], "explanation": "ตรงตามสไลด์ Class 2 หน้า 24 (Con of Detailed Up-front Planning) ทั้ง 4 ข้อ"}, {"id": 23, "week": 2, "type": "multiple", "badge": "Multiple Choice W2", "question": "[เลือกหลายคำตอบ] เกี่ยวกับ Team Commitment ในช่วงท้ายของ Sprint Planning ข้อใดกล่าวถูกต้อง?", "options": ["Commitment ของทีมต้องมีความเหมาะสมและเป็นไปได้จริง (Appropriate and Realistic)", "Product Owner ไม่สามารถบังคับหรือตัดสินใจแทนทีมได้ว่าจะต้อง Commit งานแค่ไหน", "Scrum Master ไม่สามารถตัดสินใจแทนทีมได้ แต่สามารถตั้งคำถามท้าทาย (Challenge the team) ให้ทีมคิดรอบคอบขึ้นได้", "Product Owner มีสิทธิ์สั่งบังคับให้ Developers รับงานเกิน Capacity ได้ทุกเมื่อ"], "answer": [0, 1, 2], "explanation": "จากสไลด์ Class 2 หน้า 36 (Team Commitment): คุณสมบัติของ Commitment คือ Appropriate and Realistic, PO ตัดสินใจแทนไม่ได้ (No), และ SM ตัดสินใจแทนไม่ได้แต่ Challenge ทีมได้"}, {"id": 24, "week": 2, "type": "multiple", "badge": "Multiple Choice W2", "question": "[เลือกหลายคำตอบ] ในกิจกรรม Sprint Retrospective ทีมจะทำการ Inspect และ Adapt เพื่อเป้าหมายใด?", "options": ["ตรวจสอบกระบวนการทำงาน (Process), การทำงานเป็นทีม (Teamwork), เครื่องมือ (Tools) และความสัมพันธ์", "ได้แนวทางการปรับปรุงที่นำไปปฏิบัติได้จริง (Actionable improvement actions) สำหรับ Sprint ถัดไป", "ป้องกันไม่ให้ปัญหาเดิม (เช่น เพื่อนมีปัญหาในการทำงานแต่บอกช้าจนส่งงานไม่ทัน) เกิดซ้ำอีกในรอบหน้า", "ตรวจสอบเฉพาะโค้ดเพื่อหา Syntax Error เท่านั้น"], "answer": [0, 1, 2], "explanation": "อ.โอฬาร ยกตัวอย่างในคลาสที่ 2 ว่า หากเจอปัญหาเพื่อนมาสายหรือเพื่อนติดปัญหาแต่ไม่บอกจนวันสุดท้าย ใน Retrospective เราจะคุยกันเพื่อหา Actionable improvement สำหรับรอบถัดไป"}, {"id": 25, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "ข้อความต่อไปนี้ถูกหรือผิด: 'โครงสร้างมาตรฐานของ User Story ประกอบไปด้วย 2 ส่วนเท่านั้น คือ Role (ใคร) และ Action (ต้องการทำอะไร)'?", "options": ["ถูก มีแค่ 2 ส่วนคือ As a <Role>, I want to <Action>", "ผิด เพราะโครงสร้างที่สมบูรณ์ประกอบด้วย 3 ส่วน คือ Role, Action และ Benefit/Value (so that <Benefit/Value>)", "ผิด เพราะต้องระบุชื่อตาราง Database และ HTTP Method ลงใน User Story เสมอ", "ถูก เพราะไม่จำเป็นต้องรู้ว่าผู้ใช้ได้ประโยชน์อะไร"], "answer": [1], "explanation": "อ.โอฬาร เฉลยใน Menti W3 ข้อ 1 ว่า ไม่จริง เพราะนอกจาก Role กับ Action แล้ว ยังมีส่วนที่ 3 คือ 'so that <Benefit/Value>' ที่บอกคุณค่าหรือเหตุผลที่ต้องการฟีเจอร์นั้น"}, {"id": 26, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "เหตุผลสำคัญของการใช้ User Stories ใน Agile คือข้อใด?", "options": ["เพื่อเขียนรายละเอียดทางเทคนิคทั้งหมดให้ครบจบในประโยคเดียว จะได้ไม่ต้องเสียเวลาคุยกับ Product Owner อีก", "เพื่อใช้เป็นจุดตั้งต้นในการพูดคุยทำความเข้าใจร่วมกัน (A great placeholder for a conversation) ที่เข้าใจได้ง่ายทั้งฝั่งธุรกิจและฝั่งเทคนิค", "เพื่อใช้แทนการเขียนโค้ดและการทำ Automated Testing", "เพื่อล็อกสเปกไม่ให้ลูกค้าเปลี่ยนแปลงความต้องการ"], "answer": [1], "explanation": "ในสไลด์ Class 3 หน้า 11 และ Menti W3 ข้อ 2: User Story มีโครงสร้างเรียบง่าย เข้าใจได้ทั้งฝั่ง Business และ Technical และทำหน้าที่เป็น 'A great placeholder for a conversation' เพื่อนำไปพูดคุยสอบถามรายละเอียดกับ Product Owner"}, {"id": 27, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "Product Backlog มีคุณสมบัติเป็น 'Dynamic and never complete' อยากทราบว่า Product Backlog จะถือว่าเสร็จสิ้น (Finished / Complete) ก็ต่อเมื่อใด?", "options": ["เมื่อจบ Sprint ที่ 1", "เมื่อทำฟีเจอร์ระดับ Must-have ครบทั้งหมดใน Release แรก", "เมื่อตัวผลิตภัณฑ์นั้นถูกยกเลิกการใช้งานหรือปลดระวางแล้ว (เมื่อ Product Retire แล้วเท่านั้น)", "เมื่อ Product Owner เขียน User Story ครบ 100 ข้อ"], "answer": [2], "explanation": "อ.โอฬาร เฉลยใน Menti W3 ข้อ 3 ว่า Product Backlog จะไม่มีวันเสร็จสมบูรณ์ (Never complete) จนกว่าตัว Product จะ Retire (เลิกพัฒนา/เลิกใช้งาน ไม่ต้องมีการแก้ไขปรับปรุงอีกต่อไป)"}, {"id": 28, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "ตัวย่อ 'DEEP' ซึ่งหมายถึงคุณลักษณะที่ดีของ Product Backlog (Good Product Backlog Characteristics) ข้อใดไม่ได้อยู่ใน DEEP?", "options": ["Detailed appropriately", "Detailed and documented", "Emergent", "Estimated และ Prioritized"], "answer": [1], "explanation": "DEEP ย่อมาจาก Detailed appropriately, Emergent, Estimated และ Prioritized ส่วนคำว่า 'Detailed and documented' เป็นตัวเลือกหลอกใน Menti W3 ข้อ 4"}, {"id": 29, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "คำว่า 'Detailed appropriately' ใน DEEP มีความหมายตรงกับข้อใด?", "options": ["PBI ทุกตัวใน Product Backlog ต้องมีรายละเอียดเท่ากันทั้งหมดตั้งแต่วันแรก", "PBI ที่มีลำดับความสำคัญสูงและกำลังจะนำมาทำในเร็วๆ นี้ (อยู่ด้านบนของ Backlog) จะมีขนาดเล็กและมีรายละเอียดมาก ส่วนตัวที่อยู่ด้านล่างจะมีขนาดใหญ่และยังไม่ต้องมีรายละเอียดมาก", "PBI ที่อยู่ด้านล่างสุดต้องเขียนรายละเอียดให้มากที่สุด", "ไม่ต้องใส่รายละเอียดใดๆ เลยใน Product Backlog"], "answer": [1], "explanation": "อ.โอฬาร เฉลยใน Menti W3 ข้อ 5 และสไลด์หน้า 16 ว่า PBI แต่ละตัวไม่จำเป็นต้องมีรายละเอียดเท่ากันในเวลาเดียวกัน เราจะค่อยๆ เพิ่มรายละเอียดแบบ Just-in-time ให้กับตัวที่อยู่ด้านบนที่จะต้องทำก่อน"}, {"id": 30, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "ในการแบ่ง PBI ขนาดใหญ่ให้เล็กลง (Splitting PBI) ข้อใดคือหลักการที่ถูกต้อง?", "options": ["แตกเป็นงานทางเทคนิคแยกตามเลเยอร์ เช่น PBI ที่ 1 ทำเฉพาะ Database, PBI ที่ 2 ทำเฉพาะ CSS", "แตกเป็น PBI ย่อยๆ (เหมือนการหั่นเค้กแนวตั้ง) ที่แต่ละชิ้นยังคงส่งมอบเป็นซอฟต์แวร์ที่ทำงานได้และสาธิตให้เห็นคุณค่าได้ (Working, demonstrable software)", "รวมหลายๆ Epic เข้าด้วยกันให้ใหญ่ขึ้น", "แตกเฉพาะงานที่ไม่สำคัญเท่านั้น"], "answer": [1], "explanation": "สไลด์ Class 3 หน้า 25 และ Menti W3 ข้อ 6: 'PBIs are broken down into smaller PBIs instead of technical tasks. Smaller items still result in working, demonstrable software'"}, {"id": 31, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "ในการจัดลำดับความสำคัญแบบ MoSCoW ข้อใดเป็นข้อหลอกที่ต้องระวังเกี่ยวกับหมวด 'Won't have (this time)'?", "options": ["Won't have หมายความว่าฟีเจอร์นั้นถูกตัดทิ้งถาวรและจะไม่มีวันถูกนำมาทำอีกเลยในอนาคต", "Won't have หมายความว่าทีมตกลงกันว่าจะยังไม่ส่งมอบในกรอบเวลานี้ (This timeframe/release) แต่อาจถูกนำมาทำหรือกลายเป็น Must-have ใน Release ถัดไปได้", "Won't have คือฟีเจอร์ที่สำคัญที่สุดที่ขาดไม่ได้", "Won't have คือฟีเจอร์ที่ไม่มี Workaround"], "answer": [1], "explanation": "อ.โอฬาร เน้นใน Menti W3 ข้อ 8 ว่า ข้อนี้เป็นข้อหลอก! Won't have หมายถึงไม่ทำใน Timeframe/Release นี้ แต่อาจกลายเป็น Must-have ใน Release ที่ 2 หรือลูกค้าอาจเปลี่ยนใจในภายหลังได้"}, {"id": 32, "week": 3, "type": "single", "badge": "Menti Quiz W3", "question": "ใน MoSCoW Prioritization หมวดใดเพียงหมวดเดียวที่มีลักษณะ 'There is NO workaround' (ไม่มีทางหนีทีไล่หรือวิธีอื่นทดแทนได้ หากไม่มีสิ่งนี้ก็ไม่มีประโยชน์ที่จะส่งมอบ)?", "options": ["Must have", "Should have", "Could have", "Won't have"], "answer": [0], "explanation": "อ.โอฬาร เน้นใน Menti W3 ข้อ 9 และสไลด์หน้า 37–38 ว่า มีแค่ 'Must have' เท่านั้นที่ไม่มี Workaround ส่วน Should have แม้จะสำคัญแต่ยังพอมี Workaround ชั่วคราวได้"}, {"id": 33, "week": 3, "type": "multiple", "badge": "Multiple Choice W3", "question": "[เลือกหลายคำตอบ] ข้อใดคือเหตุผลที่ใน Fixed Date Release Planning เราควรกำหนดสัดส่วนของ Minimum Releasable Features (MRFs หรือ Must-have) ไว้ที่ประมาณ 60%–70% ของเวลาทั้งหมด (ไม่ใช่ตั้งไว้ 100%)?", "options": ["เพื่อเป็น Buffer รองรับความล่าช้าที่อาจเกิดขึ้นระหว่างพัฒนา (Possibility of delay)", "เพื่อรองรับฟีเจอร์จำเป็นเร่งด่วนที่อาจเพิ่งค้นพบใหม่ระหว่างทาง (Support Emergent MRF)", "เพื่อให้ทีมมีเวลาว่างไม่ต้องทำงานใน Sprint สุดท้าย", "เพื่อให้สอดคล้องกับหลักการ Timeboxing ที่ห้ามเลื่อนวันส่งมอบ (Fixed Date)"], "answer": [0, 1, 3], "explanation": "จากสไลด์ Class 3 หน้า 34–35 และตัวอย่างโปรเจกต์ที่ อ.โอฬาร เล่าในห้อง (มี 8 Must-have จาก 14 PBIs): การเผื่อสัดส่วน MRF ไว้ที่ 60%–70% ช่วยรองรับทั้ง Possibility of delay และ Support Emergent MRF ภายใต้กรอบเวลา Fixed Date"}, {"id": 34, "week": 3, "type": "multiple", "badge": "Multiple Choice W3", "question": "[เลือกหลายคำตอบ] กิจกรรมใดบ้างที่เกิดขึ้นในกระบวนการ Backlog Grooming / Refinement?", "options": ["การประเมินขนาด (Assigning estimates) ให้กับ User Stories ที่ยังไม่มีค่าประเมิน หรือปรับแก้ค่าประเมินเมื่อได้ข้อมูลใหม่", "การแตก User Stories ขนาดใหญ่ที่มีความสำคัญสูง (Splitting user stories) ให้เล็กพอที่จะเข้าสู่ Sprint ถัดไปได้", "การลบ User Stories ที่ไม่เกี่ยวข้องแล้วออก (Removing irrelevant stories) และการสร้าง Stories ใหม่ตามความต้องการที่เพิ่งค้นพบ", "การจัดลำดับความสำคัญใหม่ (Re-assessing the relative priority of stories)", "การบังคับให้สิ้นสุด Sprint ทันทีเมื่อมีการเพิ่ม Story ใหม่"], "answer": [0, 1, 2, 3], "explanation": "ตรงตามสไลด์ Class 3 หน้า 21–22 (Backlog Grooming / Refinement) ทั้ง 4 กิจกรรมแรก"}, {"id": 35, "week": 3, "type": "multiple", "badge": "Multiple Choice W3", "question": "[เลือกหลายคำตอบ] ข้อใดอยู่ใน 7 แนวทางการแบ่งย่อย PBI (7 Ways to Split PBIs) ตามที่เรียนใน Class 3?", "options": ["Breaking down by operations (เช่น แยกเป็น Add, Update, Delete, Hide สินค้า)", "Breaking down by roles (เช่น แยกตามบทบาท Customer, Journalist, Editor, Admin)", "Breaking down by happy / unhappy flow (เช่น ล็อกอินสำเร็จ กับ กรณีลืมรหัสผ่านหรือล็อกอินผิด 3 ครั้ง)", "Breaking down by 'optimize now' vs 'optimize later' (เช่น ค้นหาตามรัศมีก่อน แล้วค่อยทำ Auto-complete หรือ GPS ทีหลัง)", "Breaking down by individual developer's favorite programming language"], "answer": [0, 1, 2, 3], "explanation": "7 วิธีในการ Split PBI ตามสไลด์หน้า 26–32 ได้แก่: 1) by operations, 2) by roles, 3) by data types or parameters, 4) by workflow steps, 5) by happy/unhappy flow, 6) by business rules, และ 7) by 'optimize now' vs 'optimize later'"}, {"id": 36, "week": 3, "type": "multiple", "badge": "Multiple Choice W3", "question": "[เลือกหลายคำตอบ] ใน Product Backlog นอกจากฟีเจอร์ใหม่ (Features) แล้ว ยังสามารถเก็บรายการ (PBIs) ประเภทใดรวมไว้ในถังเดียวกันได้อีก?", "options": ["Changes (การปรับเปลี่ยนการทำงานของฟีเจอร์เดิม)", "Defects (การแก้ไขบั๊กหรือข้อผิดพลาดของระบบ)", "Technical work / Technical improvement (เช่น การอัปเกรดเวอร์ชันของ Oracle DBMS)", "Knowledge acquisition (เช่น การสร้าง Prototype หรือทำ Proof of Concept เพื่อเปรียบเทียบสถาปัตยกรรม)"], "answer": [0, 1, 2, 3], "explanation": "จากสไลด์ Class 3 หน้า 13–14: Product Backlog เป็น Single source of work จึงเก็บทั้ง Features, Changes, Defects, Technical improvement และ Knowledge acquisition เพื่อจัดลำดับความสำคัญเทียบกันในที่เดียว"}, {"id": 37, "week": 4, "type": "single", "badge": "Menti Quiz W4", "question": "ข้อใดไม่ได้เป็นส่วนหนึ่งของ 'Sprint Backlog' ตามที่อาจารย์เฉลยใน Menti W4 ข้อที่ 1?", "options": ["Sprint Goal (เป้าหมายของ Sprint)", "Product Backlog Items (PBIs) ที่ถูกเลือกเข้ามาทำใน Sprint นั้น", "Tasks (งานย่อยที่แตกออกมาเพื่อสร้าง Increment)", "Definition of Done (DoD)"], "answer": [3], "explanation": "อ.โอฬาร เฉลยใน Menti W4 ข้อ 1 ว่า Sprint Backlog ประกอบด้วย Sprint Goal + PBIs ที่เลือกมา + Tasks ที่แตกออกมา ส่วน 'Definition of Done (DoD)' เป็นนิยามข้อตกลงมาตรฐานร่วมกันของทีม ไม่ได้นับเป็นรายการใน Sprint Backlog"}, {"id": 38, "week": 4, "type": "single", "badge": "Menti Quiz W4", "question": "ตามกฎของ Scrum เมื่อ Sprint ก่อนหน้าสิ้นสุดลง (เช่น จบในวันศุกร์) Sprint ถัดไปจะเริ่มต้นเมื่อใด?", "options": ["เว้นระยะพัก 1 สัปดาห์เพื่อทำเอกสารก่อนเริ่ม Sprint ใหม่", "เริ่มทันทีหลังจากจบ Sprint ก่อนหน้า (Starts immediately — เช่น เริ่มในวันทำการแรกถัดไปคือวันจันทร์ หรือวันอังคารหากวันจันทร์เป็นวันหยุด)", "รอจนกว่า Product Owner จะตรวจงานครบทุกชิ้นในอีก 2 สัปดาห์", "เริ่มเมื่อ Scrum Master สะดวก"], "answer": [1], "explanation": "จากสไลด์ Class 4 หน้า 4 และ Menti W4 ข้อ 2: 'A new Sprint starts immediately after the conclusion of the previous Sprint' (หากจบวันศุกร์ วันทำการถัดไปคือวันจันทร์ก็เริ่มทันที)"}, {"id": 39, "week": 4, "type": "single", "badge": "Menti Quiz W4", "question": "ในระหว่างที่กำลังดำเนิน Sprint (During the Sprint) ขอบเขตของงาน (Scope) สามารถปรับเปลี่ยนหรือเจรจาใหม่กับ Product Owner ได้หรือไม่?", "options": ["ไม่ได้เด็ดขาด ห้ามคุยหรือปรับอะไรทั้งสิ้นเมื่อเริ่ม Sprint แล้ว", "ได้ เมื่อทีมเรียนรู้รายละเอียดเพิ่มขึ้น โดยต้องไม่ทำให้คุณภาพลดลง (Quality does not decrease) และต้องไม่ส่งผลกระทบที่เป็นอันตรายต่อ Sprint Goal", "ได้ และสามารถลดคุณภาพ (ลดการทำ Test) ลงได้เพื่อให้เสร็จทันเวลา", "ได้ โดยไม่ต้องแจ้ง Product Owner"], "answer": [1], "explanation": "จากสไลด์ Class 4 หน้า 6 และ Menti W4 ข้อ 4: ในระหว่าง Sprint ขอบเขตงาน (Scope) สามารถทำให้ชัดเจนและเจรจาใหม่กับ PO ได้เมื่อเรียนรู้มากขึ้น ตราบใดที่ไม่กระทบต่อ Sprint Goal และคุณภาพไม่ลดลง"}, {"id": 40, "week": 4, "type": "single", "badge": "Menti Quiz W4", "question": "ข้อใดกล่าวถูกต้องเกี่ยวกับ 'Definition of Done (DoD)'?", "options": ["เป็นเงื่อนไขเฉพาะของ PBI เพียงตัวใดตัวหนึ่งเท่านั้น (Item-specific)", "เป็น Checklist ของงานที่ทีมต้องทำให้ครบถ้วนเพื่อให้มั่นใจว่างานเสร็จจริง และบังคับใช้กับทุกๆ Product Backlog Item (Applies to all PBIs) แต่สามารถปรับปรุงให้ดีขึ้นได้ตามเวลา", "เป็นรายการที่เขียนโดยลูกค้าภายนอกโดยที่ทีมพัฒนาไม่มีสิทธิ์รู้", "ไม่ต้องมีการทดสอบใดๆ ใน Definition of Done"], "answer": [1], "explanation": "จากสไลด์ Class 4 หน้า 12 และ Menti W4 ข้อ 5: Definition of Done (DoD) ใช้กับทุกๆ PBI (Applies to all product backlog items) ในขณะที่ Acceptance Criteria จะเป็นเงื่อนไขเฉพาะของแต่ละ PBI (Item-specific)"}, {"id": 41, "week": 4, "type": "single", "badge": "Menti Quiz W4", "question": "ในการทำ Daily Scrum หากพบว่าเพื่อนในทีมติดปัญหาทางเทคนิคที่ซับซ้อน ทีมควรทำอย่างไร?", "options": ["ถกเถียงและช่วยกันเขียนโค้ดแก้ปัญหาในวง Daily Scrum ทันทีแม้จะใช้เวลาถึง 1 ชั่วโมง", "ใช้เวลาใน Daily Scrum (ไม่เกิน 15 นาที) เพื่อซิงก์ให้รู้ว่าใครทำถึงไหนและติดอะไร ส่วนการลงลึกหาโซลูชันแก้ปัญหาให้แยกไปคุยกันหลังจบ Daily Scrum", "ข้ามการทำ Daily Scrum ไปเลยจนกว่าจะแก้บั๊กเสร็จ", "ให้ Scrum Master เป็นคนเขียนโค้ดแก้บั๊กนั้นแทน"], "answer": [1], "explanation": "อ.โอฬาร เน้นทั้งในคลาส 2 และ Menti W4 ข้อ 6 (รวมถึงสไลด์หน้า 46–47) ว่า ใน Daily Scrum เรามีเวลาจำกัดแค่ 15 นาที เราไม่ได้เน้นหาโซลูชันในวงประชุม แต่เน้น Sync งาน แล้วค่อยคุยแก้ปัญหาหลังจบ Daily Scrum"}, {"id": 42, "week": 4, "type": "single", "badge": "Menti Quiz W4", "question": "ในการจัดระเบียบงานช่วง Sprint Execution การทำงานแบบ 'Mini Waterfall' (วิเคราะห์ทั้งหมด -> ออกแบบทั้งหมด -> เขียนโค้ดทั้งหมด -> ทดสอบทั้งหมดในวันสุดท้าย) ควรนำมาใช้หรือไม่?", "options": ["ควรใช้ เพราะแบ่งเฟสชัดเจนเหมือนที่คุ้นเคย", "ไม่ควรนำมาใช้ (Mini Waterfall is a bad idea) เพราะหากหมดเวลาของ Sprint ก่อน จะทำให้ไม่มีฟีเจอร์ใดเสร็จสมบูรณ์พร้อมส่งมอบได้เลย", "ควรใช้เมื่อทีมมีขนาดใหญ่กว่า 10 คน", "ควรใช้ในทุกๆ Sprint ที่ทำโปรเจกต์"], "answer": [1], "explanation": "สไลด์ Class 4 หน้า 36 และ Menti W4 ข้อ 7 ระบุตรงๆ ว่า 'Mini Waterfall is a bad idea' เพราะเมื่อ Time runs out ในช่วงท้าย ทีมจะค้างอยู่ที่งานที่ยังไม่ผ่านการทดสอบและไม่ได้ PSPI เลย"}, {"id": 43, "week": 4, "type": "single", "badge": "Slide & Lecture W4", "question": "หากทีมไม่สามารถประเมินขนาดของ PBI หรือแตกเป็น Tasks ได้เนื่องจากยังขาดความรู้ความเข้าใจ ระบบ Scrum แนะนำให้ทำกิจกรรมใดเพื่อหาความรู้ (Knowledge acquisition)?", "options": ["บังคับให้ Developers เดาตัวเลขและ Commit ไปก่อน", "ทำ Spike (เช่น Technical Spike หรือ Functional Spike) โดยการสร้าง Prototype, ทำ Proof of Concept (PoC) หรือทำการทดลองศึกษา", "ยกเลิกโปรเจกต์ทันที", "โยนงานนั้นให้ทีม Operations ทำแทน"], "answer": [1], "explanation": "จากสไลด์ Class 4 หน้า 25–27: เมื่อประเมินขนาดหรือแตก Task ไม่ได้เพราะมีความไม่แน่นอนสูง เราจะทำ 'Spike' (Technical spike = ถามว่าจะสร้างอย่างไร/ใช้อะไร, Functional spike = ถามว่าระบบและผู้ใช้ควรมีพฤติกรรมอย่างไร)"}, {"id": 44, "week": 4, "type": "single", "badge": "Slide & Lecture W4", "question": "การปรับโครงสร้างโค้ดภายใน (Restructuring existing source code) เพื่อปรับปรุงการออกแบบหรือโครงสร้างให้ดีขึ้นและช่วยลดหนี้ทางเทคนิค (Remove technical debts) โดยไม่เปลี่ยนพฤติกรรมการทำงานภายนอก เรียกว่าอะไร?", "options": ["Swarming", "Code Refactoring", "Backlog Grooming", "Timeboxing"], "answer": [1], "explanation": "จากสไลด์ Class 4 หน้า 52: Code Refactoring คือการปรับโครงสร้างโค้ดภายในโดยไม่เปลี่ยน External behavior เพื่อพัฒนาคุณภาพเชิงโครงสร้างและลด Technical Debt"}, {"id": 45, "week": 4, "type": "multiple", "badge": "Multiple Choice W4", "question": "[เลือกหลายคำตอบ] ในการคำนวณ Team Capacity สำหรับ Sprint 2 สัปดาห์ (10 วันทำงาน วันละ 8 ชม. = 80 ชม./คน) เพราะเหตุใดเราจึงไม่ตั้ง Capacity เต็ม 80 ชั่วโมงต่อคน?", "options": ["ต้องหักเวลาลาหรือธุระส่วนตัว (Personal time off)", "ต้องหักเวลาสำหรับกิจกรรมอื่นๆ ของ Scrum (Sprint Planning, Sprint Review, Sprint Retrospective, Backlog Grooming)", "ต้องหักเวลาสำหรับภาระงานอื่นนอกเหนือจาก Sprint (เช่น งานดูแลระบบเดิม, การอบรม Training, หรือวิชาอื่นๆ)", "ต้องกันเวลาส่วนหนึ่งไว้เป็น Sprint Buffer สำหรับงานที่ไม่คาดคิด (Unplanned work) หรือการประเมินที่คลาดเคลื่อน"], "answer": [0, 1, 2, 3], "explanation": "ตรงตามสไลด์ Class 4 หน้า 18–22 (Determining Capacity & Sprint Buffer) ทุกประการ"}, {"id": 46, "week": 4, "type": "multiple", "badge": "Multiple Choice W4", "question": "[เลือกหลายคำตอบ] ข้อใดคือแนวทางการใช้ Task Board (เช่น GitHub Project, Jira, Trello) และการแบ่งงานใน Integrated Project ตามที่ อ.โอฬาร แนะนำในคลาสที่ 4?", "options": ["บนบอร์ดต้องมีสถานะพื้นฐานอย่างน้อย 3 สถานะ คือ To-do, Doing และ Done", "เมื่อหยิบงานจาก To-do มาทำ ต้องเปลี่ยนสถานะเป็น Doing และระบุชื่อผู้รับผิดชอบ (Assignee) เพื่อให้เพื่อนในทีมเห็นความคืบหน้า", "สามารถแนบผลลัพธ์ (Artefacts/Output เช่น ลิงก์ API Spec หรือไฟล์งาน) ลงในการ์ดงานเพื่อให้เพื่อนเข้าถึงได้ง่าย", "ควรทำ Pair/Triple Programming และสลับบทบาท (เช่น สลับทำ Front-end และ Back-end ในแต่ละ Sprint หรือแต่ละ PBI) เพื่อให้ทุกคนได้เรียนรู้ครบทุกด้านและทำข้อสอบปฏิบัติได้", "ใครถนัด Front-end ให้ทำแต่ Front-end อย่างเดียวไปตลอดทั้งเทอม ห้ามแตะ Back-end เด็ดขาด"], "answer": [0, 1, 2, 3], "explanation": "อ.โอฬาร เน้นในคลาสที่ 4 (สไลด์หน้า 41–43) เรื่องสถานะ To-do / Doing / Done, การใส่ Assignee, การแนบ Artefact และเตือนว่าอย่าแบ่งแยกทำแค่ฝั่งเดียวตลอดเทอมเพราะจะทำให้เรียนรู้ไม่ครบและสอบตกในส่วนที่ตัวเองไม่ได้ทำ"}, {"id": 47, "week": 4, "type": "multiple", "badge": "Multiple Choice W4", "question": "[เลือกหลายคำตอบ] ข้อใดจัดเป็นตัวอย่างของหนี้ทางเทคนิค (Technical Debt Examples) ตามที่ระบุไว้ในสไลด์ Class 4 หน้า 50–51?", "options": ["การตั้งชื่อตัวแปรที่ไม่สื่อความหมาย (Bad variable names) และการฝัง URL ตายตัวไว้ในโค้ด (Hard coding URL in the code)", "การตั้งค่า CORS (Cross-Origin Resource Sharing) ให้เปิดรับทั้งหมด (Allow all) โดยไม่จำกัดสิทธิ์", "การที่ API ส่งข้อมูลที่ไม่จำเป็นกลับมาทั้งหมด (API returns unneeded data) และการไม่จัดการข้อผิดพลาด (No exception handling)", "การรัน Front-end ด้วย node.js (dev server) บน Production environment แทนที่จะ Build ไปรันบน Web Server มาตรฐาน", "การเขียน Unit Test และทำ Code Refactoring อย่างสม่ำเสมอ"], "answer": [0, 1, 2, 3], "explanation": "ตัวเลือกที่ 1–4 คือตัวอย่าง Technical Debt ทั้ง 6 ข้อในสไลด์หน้า 51 ของ อ.โอฬาร ส่วนการทำ Unit Test และ Refactoring เป็นวิธีป้องกันและชำระคืน Technical Debt"}, {"id": 48, "week": 4, "type": "multiple", "badge": "Multiple Choice W4", "question": "[เลือกหลายคำตอบ] รูปแบบการเขียน Acceptance Criteria (เงื่อนไขการยอมรับงานเฉพาะของแต่ละ PBI) ที่เรียนใน Class 4 มีรูปแบบใดบ้าง?", "options": ["Scenario-oriented acceptance criteria ที่ใช้โครงสร้าง Given / When / Then (เช่น Given บัญชีมีเงินและบัตรถูกต้อง, When ลูกค้ากดถอนเงิน, Then หักบัญชีและจ่ายธนบัตร)", "Rule-oriented acceptance criteria ที่เขียนเป็นรายการกฎเกณฑ์หรือเงื่อนไขที่ต้องตรวจสอบ (Checklist of rules)", "การเขียนเป็น Acceptance Test ที่มี Test Scenario, Test Data, Test Steps และ Expected Results ชัดเจน", "การเขียนแค่ชื่อฟีเจอร์สั้นๆ โดยไม่ต้องมีเงื่อนไขการตรวจสอบใดๆ"], "answer": [0, 1, 2], "explanation": "จากสไลด์ Class 4 หน้า 13–17: Acceptance Criteria สามารถเขียนแบบ Scenario-oriented (Given/When/Then), Rule-oriented (รายการเงื่อนไข) และนำไปขยายเป็น Acceptance Test cases"}, {"id": 49, "week": 5, "type": "single", "badge": "Menti Quiz W5", "question": "ข้อความต่อไปนี้ถูกหรือผิด (Menti W5 ข้อ 1): 'ใน Scrum จะต้องมีการระบุชื่อบุคคลเพียง 1 คน (One named person) ให้เป็นผู้มี Accountability ในการส่งมอบ Increment ของแต่ละรอบ'?", "options": ["ถูก คือ Scrum Master", "ถูก คือ หัวหน้าทีม Developer", "ผิด เพราะการสร้างและส่งมอบ Increment ที่มีคุณค่าเป็น Accountability ของทั้งทีม Scrum (The entire Scrum Team) ร่วมกัน ไม่ใช่คนใดคนหนึ่ง", "ถูก คือ ผู้จัดการโครงการ (Project Manager)"], "answer": [2], "explanation": "อ.โอฬาร เฉลยใน Menti W5 ข้อ 1 ว่า ไม่จริง เพราะ Accountability ในการส่งมอบ Increment เป็นของทั้งทีม (The entire Scrum Team) ไม่ใช่ระบุชื่อคนใดคนหนึ่ง"}, {"id": 50, "week": 5, "type": "single", "badge": "Menti Quiz W5", "question": "ข้อใดกล่าวถูกต้องเกี่ยวกับบทบาทของ Product Owner (Menti W5 ข้อ 2 และข้อ 8)?", "options": ["Product Owner เป็นเพียงคณะกรรมการ (Just a committee) ที่มีหน้าที่ทำตามคำสั่งและคอยแจกจ่ายงาน (Assign tasks) ให้กับ Developer แต่ละคน", "Product Owner เป็นบุคคลคนเดียว (ไม่ใช่แค่คณะกรรมการ) ที่มี Accountability ในการทำให้เกิดคุณค่าสูงสุดของผลิตภัณฑ์ (Maximizing product value) และไม่ก้าวก่ายไปสั่ง Assign งานย่อยให้ Developer", "Product Owner มีได้หลายคนในทีมเดียวกันเพื่อช่วยกันโหวตสั่งงาน", "Product Owner มีหน้าที่หลักคือการดูแลเซิร์ฟเวอร์และแก้บั๊กแทนทีม"], "answer": [1], "explanation": "อ.โอฬาร เฉลยใน Menti W5 ข้อ 2 และข้อ 8 ว่า PO ไม่ได้เป็นแค่คณะกรรมการ (Committee) แต่มี Accountability สูงมากในการบริหารคุณค่าของ Product และไม่ใช่หน้าที่ของ PO ที่จะไป Assign งานให้กับ Developer"}, {"id": 51, "week": 5, "type": "single", "badge": "Menti Quiz W5", "question": "ในฐานะ Process Authority บทบาทของ Scrum Master แตกต่างจาก Project Manager อย่างไร (Menti W5 ข้อ 3 และข้อ 4)?", "options": ["Scrum Master มีอำนาจสั่งการ (Dictate) ว่า Product Owner ต้องมี PBI อะไรบ้าง และทีมต้องหยิบงานไหนไปทำ", "Scrum Master มีหน้าที่จ้างงาน ไล่คนออก และคอยจี้ตามงานให้เสร็จตามเวลาเหมือนผู้จัดการ", "Scrum Master ไม่สามารถสั่งการ (Cannot dictate) ว่าทีมต้องทำงานชิ้นไหนหรือทำอย่างไร และไม่ได้มีหน้าที่รับผิดชอบคอยตามงานให้เสร็จ แต่ช่วยให้ทีมกำหนดและปฏิบัติตามกระบวนการ Scrum ของตนเอง", "Scrum Master เป็นหัวหน้าสายตรงของ Product Owner"], "answer": [2], "explanation": "จากสไลด์ Class 5 หน้า 45–46 และคำอธิบายของ อ.โอฬาร: ต่างจาก Project Manager ที่สั่งทุกคนได้ แต่ Scrum Master สั่งไม่ได้ (Cannot dictate) และไม่ใช่คนคอยตามจี้งานให้เสร็จ แต่ทำหน้าที่เป็นโค้ชและดูแลกระบวนการ Scrum"}, {"id": 52, "week": 5, "type": "single", "badge": "Menti Quiz W5", "question": "หากทีมพัฒนาเกิดปัญหาในการทำงานที่สมาชิกในทีมสามารถแก้ไขได้ด้วยตนเอง ท่าที (Attitude) ของ Scrum Master ที่ดีควรเป็นอย่างไร (Menti W5 ข้อ 5)?", "options": ["เข้าไปลงมือแก้ปัญหาและตัดสินใจแทนทีมทันทีเพื่อประหยัดเวลา", "เพิกเฉยและปล่อยให้ทีมล้มเหลวโดยไม่สนใจ", "ไม่เข้าไปแก้ปัญหาแทนทีม แต่ใช้การ Coaching เพื่อช่วยให้ทีมสามารถคิดและแก้ปัญหาได้ด้วยตนเอง ('I'm not here to solve your problems for you; instead, I'm here to help you solve your own problems')", "สั่งลงโทษคนที่ทำให้เกิดปัญหา"], "answer": [2], "explanation": "จากสไลด์ Class 5 หน้า 41–42 และ Menti W5 ข้อ 5: หากเป็นปัญหาที่ทีมแก้เองได้ SM จะไม่เข้าไปแก้แทน แต่ใช้การ Coaching (เน้นการตั้งคำถาม ASK มากกว่าการสั่ง TELL) ยกเว้นเป็น Impediment ที่เกินอำนาจของทีม SM จึงจะรับไปจัดการให้"}, {"id": 53, "week": 5, "type": "single", "badge": "Menti Quiz W5", "question": "เมื่อเปรียบเทียบระหว่าง Working Group กับ Working Team (Katzenbach & Smith, 1993) ข้อใดเป็นคุณลักษณะของ 'Working Team' (Menti W5 ข้อ 9)?", "options": ["Individual work products (ผลงานเป็นของรายบุคคลแยกกัน)", "Strong, clearly focused leader (มีผู้นำเดี่ยวที่สั่งการชัดเจน)", "Collective work products (ผลงานเกิดจากการลงมือทำร่วมกันของทั้งทีม) และมีทั้ง Individual and mutual accountability", "Discusses, decides, and delegates (คุยกัน ตัดสินใจ แล้วโยนงานให้คนอื่นไปทำ)"], "answer": [2], "explanation": "ในสไลด์ Class 5 หน้า 14 และ Menti W5 ข้อ 9: Working Team จะมี Shared leadership roles, Individual and mutual accountability, Collective work products และ Discusses, decides, and does real work together"}, {"id": 54, "week": 5, "type": "single", "badge": "Menti Quiz W5", "question": "Scrum Master มี Accountability ในการส่งเสริมและสนับสนุนการใช้ Scrum โดยช่วยให้เข้าใจทฤษฎีและแนวปฏิบัติของ Scrum ในขอบเขตใด (Menti W5 ข้อ 10)?", "options": ["เฉพาะภายในกลุ่ม Developers เท่านั้น", "เฉพาะภายใน Scrum Team เท่านั้น ไม่เกี่ยวกับคนนอกทีม", "ทั้งภายใน Scrum Team และระดับองค์กร (Both within the Scrum Team and the organization)", "เฉพาะกับลูกค้าภายนอกองค์กรเท่านั้น"], "answer": [2], "explanation": "จากสไลด์ Class 5 หน้า 39 และ Menti W5 ข้อ 10: 'By helping everyone understand Scrum theory and practice, both within the Scrum Team and the organization'"}, {"id": 55, "week": 5, "type": "single", "badge": "Slide & Lecture W5", "question": "ตามสมการความเชื่อใจ (The Trust Equation: T = (C + R + I) / S) ตัวแปร S ที่เป็นตัวหารซึ่งหากมีค่ามากจะยิ่งทำให้ความเชื่อใจ (Trustworthiness) ลดลง คืออะไร?", "options": ["Speed (ความเร็วในการทำงาน)", "Self-Orientation (การยึดตัวเองเป็นศูนย์กลางหรือคิดถึงแต่ผลประโยชน์ของตนเอง)", "Shared Understanding (ความเข้าใจร่วมกัน)", "Sustainability (ความยั่งยืน)"], "answer": [1], "explanation": "จากสไลด์ Class 5 หน้า 6: Trustworthiness = (Credibility + Reliability + Intimacy) / Self-Orientation"}, {"id": 56, "week": 5, "type": "single", "badge": "Slide & Lecture W5", "question": "เมื่อมีผู้จัดการจากแผนกอื่นมาขอดึงตัว Developer ในทีมไปช่วยงานอื่นกลางคันในระหว่าง Sprint ทำให้ Capacity ของทีมลดลงและเสี่ยงต่อการไม่บรรลุ Sprint Goal การที่ Scrum Master เข้ามาช่วยปกป้องทีมในกรณีนี้ตรงกับบทบาทใดมากที่สุด?", "options": ["Interference shield (เกราะป้องกันการรบกวนจากภายนอก)", "Code Refactorer", "Product Backlog Groomer", "System Architect"], "answer": [0], "explanation": "จากสไลด์ Class 5 หน้า 47 และตัวอย่างที่ อ.โอฬาร ยกในคลาสที่ 5: เมื่อมี Manager มาขอดึงคนในทีมไปทำงานอื่นกลาง Sprint จนกระทบ Capacity และโฟกัสของทีม Scrum Master จะทำหน้าที่เป็น Interference shield"}, {"id": 57, "week": 5, "type": "multiple", "badge": "Multiple Choice W5", "question": "[เลือกหลายคำตอบ] ข้อใดคือค่านิยมหลักทั้ง 5 ประการของ Scrum (5 Scrum Values) ที่ช่วยสร้างความเชื่อใจ (Trust) และทำให้เสาหลักทั้ง 3 ของ Scrum มีชีวิตขึ้นมา?", "options": ["Commitment (ความมุ่งมั่นทุ่มเทต่อเป้าหมายและการช่วยเหลือกันในทีม)", "Focus (การมีสมาธิจดจ่อกับงานใน Sprint เพื่อความก้าวหน้าสูงสุด)", "Courage (ความกล้าหาญที่จะทำในสิ่งที่ถูกต้องและรับมือกับปัญหายากๆ)", "Openness (ความเปิดกว้างเกี่ยวกับงานและความท้าทายที่เผชิญ)", "Respect (ความเคารพซึ่งกันและกันในฐานะคนที่มีความสามารถและพึ่งพาได้)"], "answer": [0, 1, 2, 3, 4], "explanation": "5 Scrum Values ตามสไลด์ Class 5 หน้า 7–11 ได้แก่ Commitment, Focus, Courage, Openness และ Respect"}, {"id": 58, "week": 5, "type": "multiple", "badge": "Multiple Choice W5", "question": "[เลือกหลายคำตอบ] ข้อใดเป็นคุณลักษณะที่ดีของทีมพัฒนา (Development Team Characteristics/Skills) ตามสไลด์ Class 5 หน้า 23–33?", "options": ["T-shaped skills (มีความเชี่ยวชาญลึกในสายงานหลักของตน และมีความรู้กว้างพร้อมเรียนรู้ช่วยงานสายอื่นได้)", "Musketeer attitude (ทัศนคติ 'All for one and one for all' ลงเรือลำเดียวกัน ช่วยกันพาทีมให้รอด ไม่เกี่ยงงาน)", "Right-sized (ขนาดทีมที่เหมาะสมตามกฎทั่วไปคือ 5–9 คน หรือใน Scrum Guide คือไม่เกิน 10 คน เพื่อลด Social loafing และลดภาระการประสานงาน)", "Focused and committed & Works at a sustainable pace (ไม่ถือโปรเจกต์พร้อมกันหลายตัวจนเสียเวลาสลับงาน และทำงานด้วยจังหวะที่ยั่งยืน)", "แบ่งลำดับชั้นยศตำแหน่ง (Hierarchies) และแยกเป็นทีมย่อย (Sub-teams) อย่างชัดเจน"], "answer": [0, 1, 2, 3], "explanation": "ใน Scrum Team จะไม่มี Sub-teams หรือ Hierarchies (สไลด์หน้า 18) ส่วนคุณลักษณะทั้ง 4 ข้อแรกตรงตามสไลด์หน้า 23–33"}, {"id": 59, "week": 5, "type": "multiple", "badge": "Multiple Choice W5", "question": "[เลือกหลายคำตอบ] ข้อใดคือความรับผิดชอบหลักของ Product Owner (Principal Responsibilities of Product Owner) ตามสไลด์ Class 5 หน้า 34–38?", "options": ["Manage economics (บริหารความคุ้มค่าเชิงเศรษฐศาสตร์ทั้งระดับ Product Backlog, ระดับ Sprint ตอนเริ่ม และระดับ Release ตอนจบแต่ละ Sprint)", "Participate in planning และ Groom the product backlog", "Define acceptance criteria and verify that they are met (กำหนดเกณฑ์การตรวจรับงานและตรวจสอบว่าตรงตามเกณฑ์)", "Collaborate with the development team and stakeholders (ทำงานร่วมกับทีมพัฒนาอย่างสม่ำเสมอ สร้างทีละฟีเจอร์ ไม่ใช่ทำทีละเฟส)", "สั่ง Assign งานย่อยรายชั่วโมงให้ Developer แต่ละคนทำ"], "answer": [0, 1, 2, 3], "explanation": "6 ความรับผิดชอบหลักของ PO ตามสไลด์หน้า 36 ได้แก่ Manage economics, Participate in planning, Groom the product backlog, Define acceptance criteria & verify, Collaborate with dev team และ Collaborate with stakeholders (ไม่รวมการสั่ง Assign งานย่อยให้ Developer)"}, {"id": 60, "week": 5, "type": "multiple", "badge": "Multiple Choice W5", "question": "[เลือกหลายคำตอบ] ข้อใดคือบทบาทและความรับผิดชอบหลักทั้ง 6 ด้านของ Scrum Master (ScrumMaster Responsibilities) ตามสไลด์ Class 5 หน้า 40–50?", "options": ["Coach และ Servant leader (เป็นโค้ชและผู้นำผู้รับใช้ให้ทั้งทีมและ Product Owner)", "Process authority (ดูแลให้ทีมยึดมั่นและปรับปรุงกระบวนการตามหลักการของ Scrum)", "Interference shield (ปกป้องทีมจากการถูกรบกวนระหว่าง Sprint)", "Impediment remover (ช่วยขจัดอุปสรรคที่อยู่นอกเหนือการควบคุมของทีม เช่น ประสานงานกับ VP of Operations เมื่อ Production server ไม่เสถียร)", "Change agent (เป็นผู้นำการเปลี่ยนแปลง ช่วยให้คนในและนอกทีมเข้าใจความจำเป็น ผลกระทบ และประโยชน์ของการใช้ Scrum)"], "answer": [0, 1, 2, 3, 4], "explanation": "ครบทั้ง 6 บทบาทของ Scrum Master ตามแผนภาพในสไลด์ Class 5 หน้า 40: Coach, Servant leader, Process authority, Interference shield, Impediment remover และ Change agent"}];
+  let activeQuestions = [...masterQuestions];
+  const selectedAnswers = {};
+  const checkedState = {};
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    const cur = root.getAttribute('data-theme') || 'dark';
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+  }
+
+  function setMainMode(mode) {
+    const studyEl = document.getElementById('studyContainer');
+    const quizEl = document.getElementById('quizContainer');
+    const btnS = document.getElementById('modeStudyBtn');
+    const btnQ = document.getElementById('modeQuizBtn');
+
+    if (mode === 'study') {
+      studyEl.classList.remove('hidden');
+      quizEl.classList.add('hidden');
+      btnS.classList.add('active');
+      btnQ.classList.remove('active');
+    } else {
+      studyEl.classList.add('hidden');
+      quizEl.classList.remove('hidden');
+      btnS.classList.remove('active');
+      btnQ.classList.add('active');
+      renderQuizList();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function selectSection(secKey, btnEl) {
+    document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    setMainMode('study');
+    document.getElementById('searchBox').value = '';
+
+    document.querySelectorAll('.week-block').forEach(block => {
+      const cardsGrid = block.querySelector('.cards-grid');
+      const tableWrap = block.querySelector('.compact-table-wrap');
+      if (secKey === 'all') {
+        block.classList.remove('hidden');
+        if (cardsGrid) cardsGrid.classList.remove('hidden');
+        if (tableWrap) tableWrap.classList.remove('hidden');
+      } else if (secKey === 'menti') {
+        block.classList.remove('hidden');
+        if (cardsGrid) cardsGrid.classList.add('hidden');
+        if (tableWrap) tableWrap.classList.add('hidden');
+      } else {
+        const match = block.getAttribute('data-sec') === secKey;
+        block.classList.toggle('hidden', !match);
+        if (cardsGrid) cardsGrid.classList.remove('hidden');
+        if (tableWrap) tableWrap.classList.remove('hidden');
+      }
+    });
+  }
+
+  function filterByKeyword(val) {
+    const q = val.trim().toLowerCase();
+    document.querySelectorAll('.week-block').forEach(block => {
+      const cardsGrid = block.querySelector('.cards-grid');
+      const tableWrap = block.querySelector('.compact-table-wrap');
+      if (cardsGrid) cardsGrid.classList.remove('hidden');
+      if (tableWrap) tableWrap.classList.remove('hidden');
+      if (!q) {
+        block.classList.remove('hidden');
+        return;
+      }
+      block.classList.toggle('hidden', !block.innerText.toLowerCase().includes(q));
+    });
+  }
+
+  function jumpToWeekQuiz(weekNum) {
+    document.getElementById('qWeekFilter').value = String(weekNum);
+    setMainMode('quiz');
+  }
+
+  function getVisibleQuestions() {
+    const wf = document.getElementById('qWeekFilter').value;
+    const tf = document.getElementById('qTypeFilter').value;
+    return activeQuestions.filter(q => {
+      const wOk = wf === 'all' || String(q.week) === wf;
+      const tOk = tf === 'all' || q.type === tf;
+      return wOk && tOk;
+    });
+  }
+
+  function pickOption(qId, optIdx, isMulti) {
+    if (!selectedAnswers[qId]) selectedAnswers[qId] = new Set();
+    if (isMulti) {
+      if (selectedAnswers[qId].has(optIdx)) selectedAnswers[qId].delete(optIdx);
+      else selectedAnswers[qId].add(optIdx);
+    } else {
+      selectedAnswers[qId].clear();
+      selectedAnswers[qId].add(optIdx);
+    }
+    if (checkedState[qId]) {
+      delete checkedState[qId];
+      renderQuizList();
+    }
+  }
+
+  function evaluateQuestion(q, selSet) {
+    if (!selSet || selSet.size !== q.answer.length) return false;
+    return q.answer.every(idx => selSet.has(idx));
+  }
+
+  function checkOne(qId) {
+    const q = activeQuestions.find(item => item.id === qId);
+    if (!q) return;
+    const sel = selectedAnswers[qId] || new Set();
+    checkedState[qId] = { done: true, ok: evaluateQuestion(q, sel) };
+    renderQuizList();
+  }
+
+  function checkAllVisible() {
+    getVisibleQuestions().forEach(q => {
+      const sel = selectedAnswers[q.id] || new Set();
+      checkedState[q.id] = { done: true, ok: evaluateQuestion(q, sel) };
+    });
+    renderQuizList();
+  }
+
+  function shuffleQuestions() {
+    for (let i = activeQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [activeQuestions[i], activeQuestions[j]] = [activeQuestions[j], activeQuestions[i]];
+    }
+    renderQuizList();
+  }
+
+  function resetAllQuiz() {
+    Object.keys(selectedAnswers).forEach(k => delete selectedAnswers[k]);
+    Object.keys(checkedState).forEach(k => delete checkedState[k]);
+    activeQuestions = [...masterQuestions];
+    renderQuizList();
+  }
+
+  function renderQuizList() {
+    const list = getVisibleQuestions();
+    let doneCount = 0;
+    let rightCount = 0;
+    list.forEach(q => {
+      const st = checkedState[q.id];
+      if (st && st.done) {
+        doneCount++;
+        if (st.ok) rightCount++;
+      }
+    });
+    const pct = doneCount > 0 ? Math.round((rightCount / doneCount) * 100) : 0;
+    document.getElementById('qStatTotal').textContent = list.length;
+    document.getElementById('qStatDone').textContent = `${doneCount} / ${list.length}`;
+    document.getElementById('qStatRight').textContent = rightCount;
+    document.getElementById('qStatPct').textContent = `${pct}%`;
+
+    const wrap = document.getElementById('quizCardsWrap');
+    wrap.innerHTML = list.map((q, idx) => {
+      const isMulti = q.type === 'multiple';
+      const sel = selectedAnswers[q.id] || new Set();
+      const st = checkedState[q.id];
+      const isDone = st && st.done;
+
+      const optsHtml = q.options.map((opt, oIdx) => {
+        const isChecked = sel.has(oIdx) ? 'checked' : '';
+        const isAns = q.answer.includes(oIdx);
+        let cls = '';
+        let tag = '';
+        if (isDone) {
+          if (isAns) { cls = 'is-correct'; tag = ' ✓'; }
+          else if (sel.has(oIdx)) { cls = 'is-wrong'; tag = ' ✗'; }
+        }
+        return `
+          <label class="opt-item ${cls}">
+            <input type="${isMulti ? 'checkbox' : 'radio'}" name="q_${q.id}" ${isChecked} onchange="pickOption(${q.id}, ${oIdx}, ${isMulti})" />
+            <span>${opt}<strong>${tag}</strong></span>
+          </label>
+        `;
+      }).join('');
+
+      return `
+        <div class="q-card ${isDone ? (st.ok ? 'correct' : 'wrong') : ''}">
+          <div class="q-badges">
+            <span class="badge b-num">ข้อ ${idx + 1} (#${q.id})</span>
+            <span class="badge b-week">Week ${q.week}</span>
+            <span class="badge ${isMulti ? 'b-multi' : 'b-single'}">${isMulti ? `Multiple Choice (เลือก ${q.answer.length} ข้อ)` : 'Single Choice'}</span>
+            <span class="badge b-num">${q.badge}</span>
+          </div>
+          <div class="q-text">${q.question}</div>
+          <div class="opt-list">${optsHtml}</div>
+          <div class="q-actions">
+            <span style="font-size:0.78rem;color:var(--text-muted);">${isMulti ? `เลือกให้ครบ ${q.answer.length} คำตอบ` : 'เลือก 1 คำตอบที่ถูกต้องที่สุด'}</span>
+            <button type="button" class="btn btn-primary" onclick="checkOne(${q.id})">ตรวจคำตอบ</button>
+          </div>
+          <div class="exp-box ${isDone ? 'show' : ''} ${isDone && st.ok ? 'exp-ok' : 'exp-err'}">
+            <strong>${isDone && st.ok ? '✅ ตอบถูกต้อง!' : '❌ คำตอบยังไม่ถูกต้อง'}</strong> — ${q.explanation}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+</script>
+</body>
+</html>
