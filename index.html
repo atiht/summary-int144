@@ -166,9 +166,9 @@
     /* Layout Shell */
     .app-shell {
       display: grid;
-      grid-template-columns: 250px 1fr;
+      grid-template-columns: 285px 1fr;
       flex: 1;
-      max-width: 1360px;
+      max-width: 1380px;
       width: 100%;
       margin: 0 auto;
     }
@@ -218,19 +218,28 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
       width: 100%;
+      min-width: 0;
       text-align: left;
-      padding: 10px 12px;
+      padding: 9px 11px;
       border-radius: 10px;
       border: 1px solid transparent;
       background: transparent;
       color: var(--text-muted);
       font-family: inherit;
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
-      white-space: nowrap;
       transition: all 0.15s;
+    }
+
+    .side-btn > span:first-child {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .side-btn:hover {
@@ -246,12 +255,12 @@
     }
 
     .side-badge {
-      font-size: 0.7rem;
+      flex-shrink: 0;
+      font-size: 0.68rem;
       padding: 2px 7px;
       border-radius: 999px;
       background: var(--surface-2);
       color: var(--text-muted);
-      margin-left: 6px;
     }
 
     /* Main Content Area */
@@ -1069,7 +1078,6 @@
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
               <button type="button" class="btn btn-ghost" onclick="shuffleQuestions()">🔀 สุ่มข้อสอบ</button>
               <button type="button" class="btn btn-ghost" onclick="resetAllQuiz()">🔄 เริ่มใหม่</button>
-              <button type="button" class="btn btn-primary" onclick="checkAllVisible()">✅ ตรวจทั้งหมด</button>
             </div>
           </div>
         </div>
@@ -1170,39 +1178,42 @@
     });
   }
 
-  function pickOption(qId, optIdx, isMulti) {
-    if (!selectedAnswers[qId]) selectedAnswers[qId] = new Set();
-    if (isMulti) {
-      if (selectedAnswers[qId].has(optIdx)) selectedAnswers[qId].delete(optIdx);
-      else selectedAnswers[qId].add(optIdx);
-    } else {
-      selectedAnswers[qId].clear();
-      selectedAnswers[qId].add(optIdx);
-    }
-    if (checkedState[qId]) {
-      delete checkedState[qId];
-      renderQuizList();
-    }
-  }
-
   function evaluateQuestion(q, selSet) {
     if (!selSet || selSet.size !== q.answer.length) return false;
     return q.answer.every(idx => selSet.has(idx));
   }
 
-  function checkOne(qId) {
+  function pickOption(qId, optIdx, isMulti) {
     const q = activeQuestions.find(item => item.id === qId);
     if (!q) return;
-    const sel = selectedAnswers[qId] || new Set();
-    checkedState[qId] = { done: true, ok: evaluateQuestion(q, sel) };
-    renderQuizList();
-  }
+    if (!selectedAnswers[qId]) selectedAnswers[qId] = new Set();
 
-  function checkAllVisible() {
-    getVisibleQuestions().forEach(q => {
-      const sel = selectedAnswers[q.id] || new Set();
-      checkedState[q.id] = { done: true, ok: evaluateQuestion(q, sel) };
-    });
+    if (isMulti) {
+      if (selectedAnswers[qId].has(optIdx)) {
+        selectedAnswers[qId].delete(optIdx);
+      } else {
+        selectedAnswers[qId].add(optIdx);
+      }
+      const sel = selectedAnswers[qId];
+      if (sel.size === 0) {
+        delete checkedState[qId];
+      } else {
+        const hasWrong = Array.from(sel).some(idx => !q.answer.includes(idx));
+        const allFound = evaluateQuestion(q, sel);
+        if (allFound) {
+          checkedState[qId] = { done: true, ok: true };
+        } else if (hasWrong || sel.size >= q.answer.length) {
+          checkedState[qId] = { done: true, ok: false };
+        } else {
+          checkedState[qId] = { done: false, partial: true, ok: false };
+        }
+      }
+    } else {
+      selectedAnswers[qId].clear();
+      selectedAnswers[qId].add(optIdx);
+      const sel = selectedAnswers[qId];
+      checkedState[qId] = { done: true, ok: evaluateQuestion(q, sel) };
+    }
     renderQuizList();
   }
 
@@ -1251,8 +1262,11 @@
         let cls = '';
         let tag = '';
         if (isDone) {
-          if (isAns) { cls = 'is-correct'; tag = ' ✓'; }
-          else if (sel.has(oIdx)) { cls = 'is-wrong'; tag = ' ✗'; }
+          if (isAns) { cls = 'is-correct'; tag = ' ✓ (คำตอบที่ถูก)'; }
+          else if (sel.has(oIdx)) { cls = 'is-wrong'; tag = ' ✗ (เลือกผิด)'; }
+        } else if (sel.has(oIdx)) {
+          if (isAns) { cls = 'is-correct'; tag = ' ✓ (ถูกต้อง)'; }
+          else { cls = 'is-wrong'; tag = ' ✗ (ผิด)'; }
         }
         return `
           <label class="opt-item ${cls}">
@@ -1262,22 +1276,20 @@
         `;
       }).join('');
 
+      const pickedCorrectCount = Array.from(sel).filter(i => q.answer.includes(i)).length;
+
       return `
         <div class="q-card ${isDone ? (st.ok ? 'correct' : 'wrong') : ''}">
           <div class="q-badges">
             <span class="badge b-num">ข้อ ${idx + 1} (#${q.id})</span>
             <span class="badge b-week">Week ${q.week}</span>
-            <span class="badge ${isMulti ? 'b-multi' : 'b-single'}">${isMulti ? `Multiple Choice (เลือก ${q.answer.length} ข้อ)` : 'Single Choice'}</span>
+            <span class="badge ${isMulti ? 'b-multi' : 'b-single'}">${isMulti ? `Multiple Choice (เลือกให้ครบ ${q.answer.length} ข้อ — ถูกแล้ว ${pickedCorrectCount}/${q.answer.length})` : 'Single Choice (คลิกเลือกเพื่อดูเฉลยทันที)'}</span>
             <span class="badge b-num">${q.badge}</span>
           </div>
           <div class="q-text">${q.question}</div>
           <div class="opt-list">${optsHtml}</div>
-          <div class="q-actions">
-            <span style="font-size:0.78rem;color:var(--text-muted);">${isMulti ? `เลือกให้ครบ ${q.answer.length} คำตอบ` : 'เลือก 1 คำตอบที่ถูกต้องที่สุด'}</span>
-            <button type="button" class="btn btn-primary" onclick="checkOne(${q.id})">ตรวจคำตอบ</button>
-          </div>
           <div class="exp-box ${isDone ? 'show' : ''} ${isDone && st.ok ? 'exp-ok' : 'exp-err'}">
-            <strong>${isDone && st.ok ? '✅ ตอบถูกต้อง!' : '❌ คำตอบยังไม่ถูกต้อง'}</strong> — ${q.explanation}
+            <strong>${isDone && st.ok ? '✅ ตอบถูกต้อง!' : '❌ ตอบผิด!'}</strong> — ${q.explanation}
           </div>
         </div>
       `;
